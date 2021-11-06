@@ -10,3 +10,10 @@ note: some implementaion has been updated in unity for example
 in the video it he uses [Serializable] for private field however 
 that has been chnanged in the new unity version. now it is [System.Serializable]
 so just be carefull.
+
+
+Andrei: 
+https://assetstore.unity.com/account/assets
+3D Wooden Chess Set we could use
+
+Completed up to 10:16 in the video, however, GitHub does not allow me to upload it apparently it's bigger than 100 files so idk what to do.
