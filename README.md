@@ -15,3 +15,6 @@ so just be carefull.
 Andrei: 
 https://assetstore.unity.com/account/assets
 3D Wooden Chess Set we could use
+
+jas:
+Stopped at 12:00 on part 1 of the video
