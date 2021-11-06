@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PieceCreator : MonoBehaviour
 {
-    [SerializeField] private GameObject[] piecesPrefabs;
-    [SerializeField] private Material blcMat;
-    [SerializeField] private Material whiteMat;
+    [System.Serializable] private GameObject[] piecesPrefabs;
+    [System.Serializable] private Material blcMat;
+    [System.Serializable] private Material whiteMat;
 
     private Dictionary<string, GameObject> nameToPieceDict = new Dictionary<string, GameObject>;
 
