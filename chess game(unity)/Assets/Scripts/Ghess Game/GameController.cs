@@ -2,8 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PieceCreator))]
 public class GameController : MonoBehaviour
 {
+    [SerializeField] private ChessBoardLayout boardLayout;
+
+    private PieceCreator pieceCreator;
+
+    private void Awake()
+    {
+        setDependencies();
+    }
+
+    private void setDependencies()
+    {
+        pieceCreator = GetComponent<PieceCreator>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +39,14 @@ public class GameController : MonoBehaviour
             string name = boardLayout.GetSquarePieceNameAtPosition(i);
 
             Type type = Type.getType(typeName);
-
+            initializePieces(squareCoordinates, team, type);
         }
     }
+
+    private void initializePieces(Vector2Int squareCoordinates, TeamColor team, Type type)
+    {
+        Piece piece = pieceCreator.CreatePiece(type).GetComponent<pieceCreator>();
+        piece.SetData(squareCoordinates, team, boardLayout);
+    }
+
 }
