@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PieceCreator))]
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private ChessBoardLayout boardLayout;
+    [System.Serializable] private ChessBoardLayout boardLayout;
 
     private PieceCreator pieceCreator;
 
@@ -50,3 +50,4 @@ public class GameController : MonoBehaviour
     }
 
 }
+
