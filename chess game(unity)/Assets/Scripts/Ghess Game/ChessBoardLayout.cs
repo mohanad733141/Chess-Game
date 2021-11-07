@@ -10,15 +10,12 @@ public class ChessBoardLayout : ScriptableObject
     [System.Serializable]
     private class ChessSquareSetup
     {
-
         public Vector2Int location;
         public TeamColour playerColour;
         public PieceType PieceType;
-
     }
 
     [SerializeField] private ChessSquareSetup[] ChessSquares;
-
 
     public Vector2Int GetSquareLocationAtPosition(int position)
     {
@@ -38,6 +35,8 @@ public class ChessBoardLayout : ScriptableObject
         return ChessSquares.Length;
 
     }
+
+
 
     public TeamColour GetSquareColourAtPosition(int position)
     {
