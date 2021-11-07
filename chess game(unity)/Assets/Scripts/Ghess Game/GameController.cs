@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(PieceCreator))]
 public class GameController : MonoBehaviour
 {
-    [System.Serializable] private ChessBoardLayout boardLayout;
+    [SerializeField]private ChessBoardLayout boardLayout;
 
     private PieceCreator pieceCreator;
 
@@ -43,9 +43,9 @@ public class GameController : MonoBehaviour
         }
     }
 
-    private void initializePieces(Vector2Int squareCoordinates, TeamColor team, Type type)
+    private void initializePieces(Vector2Int squareCoordinates, TeamColour team, Type type)
     {
-        Piece piece = pieceCreator.CreatePiece(type).GetComponent<pieceCreator>();
+        Piece piece = pieceCreator.CreatePiece(type).GetComponent<PieceCreator>();
         piece.SetData(squareCoordinates, team, boardLayout);
     }
 

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Scriptable Objects/Board/Layout")]
-
-
 public class ChessBoardLayout : ScriptableObject
 {
     [System.Serializable]

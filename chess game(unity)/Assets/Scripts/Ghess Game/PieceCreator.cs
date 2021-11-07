@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class PieceCreator : MonoBehaviour
 {
-    [System.Serializable] private GameObject[] piecesPrefabs;
-    [System.Serializable] private Material blcMat;
-    [System.Serializable] private Material whiteMat;
+    [SerializeField] private GameObject[] piecesPrefabs;
+    [SerializeField] private Material blcMat;
+    [SerializeField] private Material whiteMat;
 
-    private Dictionary<string, GameObject> nameToPieceDict = new Dictionary<string, GameObject>;
+    private Dictionary<string, GameObject> nameToPieceDict = new Dictionary<string, GameObject>();
 
     private void Awake()
     {
@@ -28,9 +28,9 @@ public class PieceCreator : MonoBehaviour
         return null;
     }
 
-    public Material getTeamMaterial(TeamColor team)
+    public Material getTeamMaterial(TeamColour team)
     {
-        if(team == whiteMat)
+        if(team = whiteMat)
         {
             return whiteMat;
         } else
