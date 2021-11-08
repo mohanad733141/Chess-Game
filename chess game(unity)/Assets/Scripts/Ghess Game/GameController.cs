@@ -1,13 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 [RequireComponent(typeof(PieceCreator))]
 public class GameController : MonoBehaviour
 {
     [SerializeField]private ChessBoardLayout boardLayout;
-
+     
     private PieceCreator pieceCreator;
+    [SerializeField]private ChessBoard ChessBoard;
 
     private void Awake()
     {
@@ -35,19 +38,19 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < boardLayout.GetPiecesNum(); i++)
         {
             Vector2Int squareCoordinates = boardLayout.GetSquareLocationAtPosition(i);
-            TeamColor team = boardLayout.GetSquareColourAtPosition(i);
+            TeamColour team = boardLayout.GetSquareColourAtPosition(i);
             string name = boardLayout.GetSquarePieceNameAtPosition(i);
 
-            Type type = Type.getType(typeName);
+            Type type = Type.GetType(typeName);
             initializePieces(squareCoordinates, team, type);
         }
     }
 
-    private void initializePieces(Vector2Int squareCoordinates, TeamColour team, Type type)
+    private void initializePieces(Vector2Int squareCoordinates, TeamColour teamColour, Type type)
     {
-        Piece piece = pieceCreator.CreatePiece(type).GetComponent<PieceCreator>();
-        piece.SetData(squareCoordinates, team, boardLayout);
+        Piece piece = pieceCreator.CreatePiece(type).GetComponent<Piece>();
+       piece.SetData(squareCoordinates, teamColour, ChessBoard);
     }
-
+   //might change piececreator to piecemaker
 }
 

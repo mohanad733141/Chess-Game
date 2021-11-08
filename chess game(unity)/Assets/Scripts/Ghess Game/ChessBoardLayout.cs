@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(menuName = "Scriptable Objects/Board/Layout")]
-public class ChessBoardLayout : ScriptableObject
+public class ChessBoardLayout :  ScriptableObject
 {
-    [System.Serializable]
+    [Serializable]
     private class ChessSquareSetup
     {
         public Vector2Int location;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class PieceCreator : MonoBehaviour
 {
@@ -23,19 +24,13 @@ public class PieceCreator : MonoBehaviour
         GameObject prefab = nameToPieceDict[type.ToString()];
         if(prefab)
         {
-            GameObject newPiece = Instantiate(prefab);
+            GameObject Piece = Instantiate(prefab);
         }
         return null;
     }
 
     public Material getTeamMaterial(TeamColour team)
     {
-        if(team = whiteMat)
-        {
-            return whiteMat;
-        } else
-        {
-            return blcMat;
-        }
+        return team == TeamColour.White ? whiteMat : blcMat;
     }
 }
