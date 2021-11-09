@@ -48,8 +48,11 @@ public class GameController : MonoBehaviour
 
     private void initializePieces(Vector2Int squareCoordinates, TeamColour teamColour, Type type)
     {
-        Piece piece = pieceCreator.CreatePiece(type).GetComponent<Piece>();
-         piece.SetData(squareCoordinates, teamColour, ChessBoard);
+        Piece newChessPiece = pieceCreator.CreatePiece(type).GetComponent<Piece>();
+         newChessPiece.SetData(squareCoordinates, teamColour, ChessBoard);
+
+         Material tMat = pieceCreator.getEachPlayerMaterial(teamColour);
+         newChessPiece.SetTeamMaterial(tMat);
     }
    //might change piececreator to piecemaker
 }

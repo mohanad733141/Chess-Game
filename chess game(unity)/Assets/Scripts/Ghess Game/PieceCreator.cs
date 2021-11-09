@@ -29,7 +29,7 @@ public class PieceCreator : MonoBehaviour
         return null;
     }
 
-    public Material getTeamMaterial(TeamColour team)
+    public Material getEachPlayerMaterial(TeamColour team)
     {
         return team == TeamColour.White ? whiteMat : blcMat;
     }
