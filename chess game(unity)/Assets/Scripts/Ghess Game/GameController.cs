@@ -39,7 +39,7 @@ public class GameController : MonoBehaviour
         {
             Vector2Int squareCoordinates = boardLayout.GetSquareLocationAtPosition(i);
             TeamColour team = boardLayout.GetSquareColourAtPosition(i);
-            string name = boardLayout.GetSquarePieceNameAtPosition(i);
+            string typeName = boardLayout.GetSquarePieceNameAtPosition(i);
 
             Type type = Type.GetType(typeName);
             initializePieces(squareCoordinates, team, type);
@@ -49,7 +49,7 @@ public class GameController : MonoBehaviour
     private void initializePieces(Vector2Int squareCoordinates, TeamColour teamColour, Type type)
     {
         Piece piece = pieceCreator.CreatePiece(type).GetComponent<Piece>();
-       piece.SetData(squareCoordinates, teamColour, ChessBoard);
+         piece.SetData(squareCoordinates, teamColour, ChessBoard);
     }
    //might change piececreator to piecemaker
 }
