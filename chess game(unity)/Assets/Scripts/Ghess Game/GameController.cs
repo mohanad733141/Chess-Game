@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
             TeamColour team = boardLayout.GetSquareColourAtPosition(i);
             string typeName = boardLayout.GetSquarePieceNameAtPosition(i);
 
-            Type type = Type.GetType(typeName);
+            Type type = Type.GetType(name);
             initializePieces(squareCoordinates, team, type);
         }
     }
@@ -53,4 +53,6 @@ public class GameController : MonoBehaviour
     }
    //might change piececreator to piecemaker
 }
+
+
 
