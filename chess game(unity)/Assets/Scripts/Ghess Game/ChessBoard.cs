@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class ChessBoard : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    [SerializeField] private Transform bottomLeftCellTransform;
+    [SerializeField] private float cellSize;
+
+
+    internal Vector3 CalculatePositionFromCoordinates(Vector2Int coordinates) {
+        return bottomLeftCellTransform.position + new Vector3(coordinates.x * cellSize, 0f, coordinates.y * cellSize);
     }
 }
