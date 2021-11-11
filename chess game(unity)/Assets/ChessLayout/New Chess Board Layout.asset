@@ -27,7 +27,7 @@ MonoBehaviour:
     PieceType: 1
   - location: {x: 5, y: 1}
     playerColour: 1
-    PieceType: 2
+    PieceType: 4
   - location: {x: 6, y: 1}
     playerColour: 1
     PieceType: 0
