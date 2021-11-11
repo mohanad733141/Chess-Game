@@ -22,3 +22,8 @@ Stopped at 12:00 on part 1 of the video
 jas:
 Stopped at 16:18 
 The 'IObjectTweener' gives an error because in the video he said that he will implement that later on
+
+
+Andrei:
+-Managed to fix the bug of random piece to spawn in the middle of the board
+-Managed to fix the bug of random bishops spawning instead of pawns for white and black pices
