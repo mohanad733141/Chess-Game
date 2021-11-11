@@ -16,7 +16,7 @@ public class ChessBoardLayout :  ScriptableObject
 
     [SerializeField] private ChessSquareSetup[] ChessSquares;
 
-    public Vector2Int GetSquareLocationAtPosition(int position)
+    public Vector2Int GetBoxLocationAtPosition(int position)
     {
 
         if (ChessSquares.Length <= position)
@@ -37,7 +37,7 @@ public class ChessBoardLayout :  ScriptableObject
 
 
 
-    public TeamColour GetSquareColourAtPosition(int position)
+    public TeamColour GetBoxColourAtPosition(int position)
     {
         if (ChessSquares.Length <= position)
         {
@@ -47,7 +47,7 @@ public class ChessBoardLayout :  ScriptableObject
         return ChessSquares[position].playerColour;
     }
 
-    public string GetSquarePieceNameAtPosition(int position)
+    public string GetBoxPieceNameAtPosition(int position)
     {
         if (ChessSquares.Length <= position)
         {

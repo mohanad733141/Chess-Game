@@ -18,14 +18,14 @@ public class PieceCreator : MonoBehaviour
             mapPieceToName.Add(chessObj.GetComponent<Piece>().GetType().ToString(), chessObj);
         }
     }
-
-    public GameObject CreatePiece(Type ChessPieceType)
+    
+    public GameObject MakeNewPieces(Type ChessPieceType)
     {
-        GameObject prefab = mapPieceToName[ChessPieceType.ToString()];
-        if(prefab)
+        GameObject tempPiece = mapPieceToName[ChessPieceType.ToString()];
+        if(tempPiece)
         {
-            GameObject newChessPiece = Instantiate(prefab);
-            return prefab;
+            GameObject newChessPiece = Instantiate(tempPiece);
+            return tempPiece;
             //here we create the new piece 
         }
         return null;

@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private ChessBoardLayout boardLayout;
 
-    private PieceCreator pieceCreator;
+    private PieceCreator pieceMaker;
     [SerializeField] private ChessBoard ChessBoard;
 
     private void Awake()
@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
 
     private void setDependencies()
     {
-        pieceCreator = GetComponent<PieceCreator>();
+        pieceMaker = GetComponent<PieceCreator>();
     }
 
     // Start is called before the first frame update
@@ -37,24 +37,24 @@ public class GameController : MonoBehaviour
     {
         for (int i = 0; i < boardLayout.GetPiecesNum(); i++)
         {
-            Vector2Int squareCoordinates = boardLayout.GetSquareLocationAtPosition(i);
-            TeamColour playerColour = boardLayout.GetSquareColourAtPosition(i);
-            string name = boardLayout.GetSquarePieceNameAtPosition(i);
+            Vector2Int squareCoordinates = boardLayout.GetBoxLocationAtPosition(i);
+            TeamColour playerColour = boardLayout.GetBoxColourAtPosition(i);
+            string name = boardLayout.GetBoxPieceNameAtPosition(i);
 
-            Type type = Type.GetType(name);
-            initializePieces(squareCoordinates, playerColour, type);
+            Type pieceType = Type.GetType(name);
+            initializePieces(squareCoordinates, playerColour, pieceType);
         }
     }
 
     private void initializePieces(Vector2Int squareCoordinates, TeamColour teamColour, Type type)
     {
-        Piece newChessPiece = pieceCreator.CreatePiece(type).GetComponent<Piece>();
-        newChessPiece.SetData(squareCoordinates, teamColour, ChessBoard);
+        Piece newChessPiece = pieceMaker.MakeNewPieces(type).GetComponent<Piece>();
+        newChessPiece.assignData(squareCoordinates, teamColour, ChessBoard);
 
-        Material tMat = pieceCreator.getEachPlayerMaterial(teamColour);
+        Material tMat = pieceMaker.getEachPlayerMaterial(teamColour);
         newChessPiece.SetTeamMaterial(tMat);
     }
-    //might change piececreator to piecemaker
+   
 }
 
 

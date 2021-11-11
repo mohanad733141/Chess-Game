@@ -80,7 +80,7 @@ public abstract class Piece : MonoBehaviour
         movesAvailable.Add(coordinates);
     }
 
-    public void SetData(Vector2Int coordinates, TeamColour teamColour, ChessBoard chessBoard)
+    public void assignData(Vector2Int coordinates, TeamColour teamColour, ChessBoard chessBoard)
     {
         this.teamColour = teamColour;
         unavailableCell = coordinates;
