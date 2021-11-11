@@ -35,12 +35,12 @@ MonoBehaviour:
     playerColour: 1
     PieceType: 2
   - location: {x: 8, y: 1}
-    playerColour: 0
+    playerColour: 1
     PieceType: 3
   - location: {x: 1, y: 2}
     playerColour: 1
     PieceType: 5
-  - location: {x: 2, y: 4}
+  - location: {x: 2, y: 2}
     playerColour: 1
     PieceType: 5
   - location: {x: 3, y: 2}
@@ -56,11 +56,11 @@ MonoBehaviour:
     playerColour: 1
     PieceType: 5
   - location: {x: 7, y: 2}
-    playerColour: 0
-    PieceType: 0
+    playerColour: 1
+    PieceType: 5
   - location: {x: 8, y: 2}
-    playerColour: 0
-    PieceType: 0
+    playerColour: 1
+    PieceType: 5
   - location: {x: 1, y: 8}
     playerColour: 0
     PieceType: 3
@@ -108,4 +108,4 @@ MonoBehaviour:
     PieceType: 5
   - location: {x: 8, y: 7}
     playerColour: 0
-    PieceType: 0
+    PieceType: 5
