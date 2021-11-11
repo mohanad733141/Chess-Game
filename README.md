@@ -27,4 +27,3 @@ The 'IObjectTweener' gives an error because in the video he said that he will im
 Andrei:
 -Managed to fix the bug of random piece to spawn in the middle of the board
 -Managed to fix the bug of random bishops spawning instead of pawns for white and black pices
-***** SOMETIMES PIECES MIGHT NOT SPAWN BUT GO TO CHESSLAYOUT > PRESS NEW CHESS LAYOUT > PRESS PLAY > SHOULD WORK
