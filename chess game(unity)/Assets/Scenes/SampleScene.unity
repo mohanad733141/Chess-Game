@@ -344,11 +344,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessPieceObj:
-  - {fileID: 8873485857694858657, guid: aceb47984adb1034f81dd0713a7f6c07, type: 3}
-  - {fileID: 3987458158131595456, guid: c0940b4c8724606418c7a68edfd37f28, type: 3}
-  - {fileID: 7582569650389542658, guid: 32fc01b1cbf8d2b408d05d693f454439, type: 3}
+  - {fileID: 2605133387645129641, guid: fcd00c0abcde90d478c73c16eeecc12a, type: 3}
+  - {fileID: 6292813087354887941, guid: 382623631f85aee439629ef160ab993a, type: 3}
+  - {fileID: 5649100893139594833, guid: b8233b3b8567e2b499e3c1b844aeb52a, type: 3}
   - {fileID: 7860150023742840390, guid: 84ed51cc66d5c7a4992708d74bd80818, type: 3}
-  - {fileID: 8509668656399638621, guid: e91966ae17f5d9d48a0b5a49b41e9405, type: 3}
+  - {fileID: 6922725084909636798, guid: 20dbf570b880d604a9bd449a312f1177, type: 3}
   - {fileID: 2794393535577314892, guid: 69dfc7dab96b5a747978816536b700e4, type: 3}
   blcMat: {fileID: 2100000, guid: 0fb9b43c01de756438e67d7d6c5c9ea1, type: 2}
   whiteMat: {fileID: 2100000, guid: ee7b7c873755a1d47bc3fbf9e5a736fa, type: 2}
@@ -597,7 +597,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663288989}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 5.39, y: 1.78, z: -5.26}
+  m_LocalPosition: {x: 5.39, y: 1.08, z: -5.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1483983468}
