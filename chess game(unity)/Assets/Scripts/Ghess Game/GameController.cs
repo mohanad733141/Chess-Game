@@ -7,10 +7,10 @@ using UnityEngine;
 [RequireComponent(typeof(PieceCreator))]
 public class GameController : MonoBehaviour
 {
-    [SerializeField]private ChessBoardLayout boardLayout;
-     
+    [SerializeField] private ChessBoardLayout boardLayout;
+
     private PieceCreator pieceCreator;
-    [SerializeField]private ChessBoard ChessBoard;
+    [SerializeField] private ChessBoard ChessBoard;
 
     private void Awake()
     {
@@ -38,23 +38,23 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < boardLayout.GetPiecesNum(); i++)
         {
             Vector2Int squareCoordinates = boardLayout.GetSquareLocationAtPosition(i);
-            TeamColour team = boardLayout.GetSquareColourAtPosition(i);
-            string typeName = boardLayout.GetSquarePieceNameAtPosition(i);
+            TeamColour playerColour = boardLayout.GetSquareColourAtPosition(i);
+            string name = boardLayout.GetSquarePieceNameAtPosition(i);
 
             Type type = Type.GetType(name);
-            initializePieces(squareCoordinates, team, type);
+            initializePieces(squareCoordinates, playerColour, type);
         }
     }
 
     private void initializePieces(Vector2Int squareCoordinates, TeamColour teamColour, Type type)
     {
         Piece newChessPiece = pieceCreator.CreatePiece(type).GetComponent<Piece>();
-         newChessPiece.SetData(squareCoordinates, teamColour, ChessBoard);
+        newChessPiece.SetData(squareCoordinates, teamColour, ChessBoard);
 
-         Material tMat = pieceCreator.getEachPlayerMaterial(teamColour);
-         newChessPiece.SetTeamMaterial(tMat);
+        Material tMat = pieceCreator.getEachPlayerMaterial(teamColour);
+        newChessPiece.SetTeamMaterial(tMat);
     }
-   //might change piececreator to piecemaker
+    //might change piececreator to piecemaker
 }
 
 

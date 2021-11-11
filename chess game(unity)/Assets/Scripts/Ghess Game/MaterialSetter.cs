@@ -6,17 +6,23 @@ using UnityEngine;
 
 public class MaterialSetter : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer mesh_renderComponent;
-    private MeshRenderer meshRenderComponent {
-        get {
-            if(meshRenderComponent == null) 
-                mesh_renderComponent = GetComponent<MeshRenderer>();
-                return mesh_renderComponent;
-            
+    private MeshRenderer mesh_renderComp;
+
+    private MeshRenderer meshRenComp
+    {
+        get
+        {
+            if (mesh_renderComp == null)
+            {
+                mesh_renderComp = GetComponent<MeshRenderer>();
+            }
+            return mesh_renderComp;
+
         }
     }
 
-    public void setMat(Material m) {
-        mesh_renderComponent.material = m;
+    public void setMat(Material m)
+    {
+        meshRenComp.material = m;
     }
 }
