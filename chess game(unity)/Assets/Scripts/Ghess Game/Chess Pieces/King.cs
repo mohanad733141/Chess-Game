@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class King : Piece
 {
-     public override List<Vector2Int> SelectAvailableCells()
+    public override List<Vector2Int> SelectAvailableCells()
     {
-        throw new System.NotImplementedException();
+        movesAvailable.Clear();
+        movesAvailable.Add(unavailableCell + new Vector2Int(0, 1));
+        return movesAvailable;
     }
 }

@@ -1,17 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 [RequireComponent(typeof(MaterialSetter))]
-
-//[RequireComponent(typeof(IObjectTweener))] 
+[RequireComponent(typeof(IObjectTweener))]
 public abstract class Piece : MonoBehaviour
 {
     public List<Vector2Int> movesAvailable;
     private MaterialSetter matSetter;
-    
+
 
     public Vector2Int unavailableCell
     {
@@ -37,15 +35,13 @@ public abstract class Piece : MonoBehaviour
         set;
     }
 
-    //  Implemented in later on in the next parts(used to move the pieces)
-    //private IObjectTweener tweener;
+    private IObjectTweener tweener;
 
     public abstract List<Vector2Int> SelectAvailableCells();
 
     private void Awake()
     {
-        //  Implemented in later on in the next parts
-        // tweener = GetComponent<IObjectTweener>();
+        tweener = GetComponent<IObjectTweener>();
         matSetter = GetComponent<MaterialSetter>();
         movesAvailable = new List<Vector2Int>();
         piecemoved = false;
@@ -71,7 +67,10 @@ public abstract class Piece : MonoBehaviour
 
     public virtual void MoveChessPiece(Vector2Int coordinates)
     {
-
+        Vector3 positionToMoveTo = chessBoard.CalculateLoctionAtCoordinates(coordinates);// calculate the position
+        unavailableCell = coordinates;// cell is now unavailable after the player has moved there
+        piecemoved = true;
+        tweener.MoveTo(transform, positionToMoveTo);
     }
 
     // Add the coordinates to the list
@@ -86,8 +85,6 @@ public abstract class Piece : MonoBehaviour
         unavailableCell = coordinates;
         this.chessBoard = chessBoard;
         transform.position = chessBoard.CalculateLoctionAtCoordinates(coordinates);
-
-
     }
 
 }

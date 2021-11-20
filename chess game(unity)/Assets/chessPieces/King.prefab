@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7144945752305344886}
   - component: {fileID: 5139849240572966587}
   - component: {fileID: 5199949439575664366}
+  - component: {fileID: 6693695646054619737}
   m_Layer: 0
   m_Name: King
   m_TagString: Untagged
@@ -53,6 +54,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -108,3 +110,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movesAvailable: []
+--- !u!114 &6693695646054619737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6922725084909636798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971466f600e664da3b2a6ddcfe128410, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8332583049448683612}
   - component: {fileID: -8826853269498838875}
   - component: {fileID: -9180317135202563939}
+  - component: {fileID: -5469052780588215198}
   m_Layer: 0
   m_Name: Bishop
   m_TagString: Untagged
@@ -53,6 +54,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -108,3 +110,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movesAvailable: []
+--- !u!114 &-5469052780588215198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2794393535577314892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 971466f600e664da3b2a6ddcfe128410, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
