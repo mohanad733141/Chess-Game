@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class InstantTweener : MonoBehaviour, IObjectTweener
 {
-    public void MoveTo(Transform trans, Vector3 positionToMoveTo)
+    void IObjectTweener.MoveTo(Transform transform, Vector3 positionToMoveTo)
     {
-        trans.position = positionToMoveTo;
+        transform.position = positionToMoveTo;
     }
 }

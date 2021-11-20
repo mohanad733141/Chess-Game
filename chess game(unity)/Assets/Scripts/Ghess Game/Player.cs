@@ -51,12 +51,11 @@ public class Player
 
     public void createPossibleMoves()
     {
-        //for (int i = 0; i < activePlayerPieces.Count; i++)// iterate through the list
-        foreach (var p in activePlayerPieces )
+        for (int i = 0; i < activePlayerPieces.Count; i++)// iterate through the list
         {
-            if (ChessBoard.alreadyContains(p))
+            if (ChessBoard.alreadyContains(activePlayerPieces[i]))
             {// piece is on the chess board
-                p.SelectAvailableCells();// select the cells available
+                activePlayerPieces[i].SelectAvailableCells();// select the cells available
             }
         }
     }

@@ -7,7 +7,6 @@ public class ChessBoard : MonoBehaviour
 {
     [SerializeField] private float cellSize;
     [SerializeField] private Transform downLeftCellTrans;
-    //size of our chess board
     public const int CHESS_BOARD_SIZE = 8;
 
     private Piece[,] grid;// 2d array to keep track of which piece is in which square
@@ -38,7 +37,7 @@ public class ChessBoard : MonoBehaviour
     private Vector2Int CalculateLoctionAtCoordinates(Vector3 inputPos)
     {
         int x = Mathf.FloorToInt(transform.InverseTransformPoint(inputPos).x / cellSize) + CHESS_BOARD_SIZE / 2;
-        int y = Mathf.FloorToInt(transform.InverseTransformPoint(inputPos).z / cellSize) + CHESS_BOARD_SIZE / 2;
+        int y = Mathf.FloorToInt(transform.InverseTransformPoint(inputPos).y / cellSize) + CHESS_BOARD_SIZE / 2;
         return new Vector2Int(x, y);
     }
 
@@ -84,10 +83,10 @@ public class ChessBoard : MonoBehaviour
         gameController.completeTurn();
     }
 
-    private void addPieceMoveToBoard(Vector2Int newCoordinates, Vector2Int oldCoordinates, Piece newP, Piece oldP)
+    private void addPieceMoveToBoard(Vector2Int newCoordinates, Vector2Int oldCoordinates, Piece newPiece, Piece oldPiece)
     {
-        grid[oldCoordinates.x, oldCoordinates.y] = oldP;
-        grid[newCoordinates.x, newCoordinates.y] = newP;
+        grid[oldCoordinates.x, oldCoordinates.y] = oldPiece;
+        grid[newCoordinates.x, newCoordinates.y] = newPiece;
     }
 
     private void choosePiece(Piece p)
@@ -130,7 +129,6 @@ public class ChessBoard : MonoBehaviour
         {
             grid[coords.x, coords.y] = newChessPiece;// set the piece to the given coordinates
         }
-        
     }
 
     // Check if coordinates passed are within the bounds

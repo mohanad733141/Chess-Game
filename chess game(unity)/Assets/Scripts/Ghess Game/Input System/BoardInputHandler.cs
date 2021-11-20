@@ -13,7 +13,7 @@ public class BoardInputHandler : MonoBehaviour, IInputHandler
         chessBoard = GetComponent<ChessBoard>();
     }
 
-    public void processInput(Vector3 inputPos, GameObject objsSelected, Action callback)
+    void IInputHandler.processInput(Vector3 inputPos, GameObject objsSelected, Action callback)
     {
         chessBoard.onCellSelected(inputPos);
     }

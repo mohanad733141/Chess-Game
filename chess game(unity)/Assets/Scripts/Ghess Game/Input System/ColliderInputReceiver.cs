@@ -23,10 +23,9 @@ public class ColliderInputReceiver : InputReceiver
 
     public override void onInput()
     {
-        //for (int i = 0; i < inputHandlers.Length; i++)
-        foreach(var h in inputHandlers)
+        for (int i = 0; i < inputHandlers.Length; i++)
         {
-            h.processInput(selectedPos, null, null);
+            inputHandlers[i].processInput(selectedPos, null, null);
         }
     }
 }

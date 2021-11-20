@@ -133,8 +133,6 @@ public class GameController : MonoBehaviour
     private void createPossibleMoves(Player p)
     {
         p.createPossibleMoves();
-        
     }
-    
 
 }

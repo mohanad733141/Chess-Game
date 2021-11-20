@@ -6,8 +6,6 @@ public class Queen : Piece
 {
     public override List<Vector2Int> SelectAvailableCells()
     {
-         movesAvailable.Clear();
-        movesAvailable.Add(unavailableCell + new Vector2Int(0, 1));
-        return movesAvailable;
+        throw new System.NotImplementedException();
     }
 }
