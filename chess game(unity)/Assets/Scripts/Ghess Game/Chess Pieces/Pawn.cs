@@ -6,6 +6,8 @@ public class Pawn : Piece
 {
    public override List<Vector2Int> SelectAvailableCells()
     {
-        throw new System.NotImplementedException();
+         movesAvailable.Clear();
+        movesAvailable.Add(unavailableCell + new Vector2Int(0, 1));
+        return movesAvailable;
     }
 }

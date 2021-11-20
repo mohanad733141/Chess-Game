@@ -25,7 +25,7 @@ public class PieceCreator : MonoBehaviour
         if(tempPiece)
         {
             GameObject newChessPiece = Instantiate(tempPiece);
-            return tempPiece;
+            return newChessPiece;
             //here we create the new piece 
         }
         return null;
