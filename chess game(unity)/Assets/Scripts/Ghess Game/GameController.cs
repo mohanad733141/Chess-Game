@@ -83,7 +83,7 @@ public class GameController : MonoBehaviour
 
         Material tMat = pieceMaker.getEachPlayerMaterial(teamColour);
         newChessPiece.SetTeamMaterial(tMat);
-        brd.setPiecesOnBoard(squareCoordinates, newChessPiece);// move the piece to the new location
+        brd.PlacePiecesOnBoard(squareCoordinates, newChessPiece);// move the piece to the new location
         Player playerCurrent = null;
         if (teamColour == TeamColour.White)
         {

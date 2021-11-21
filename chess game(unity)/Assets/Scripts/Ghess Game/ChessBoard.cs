@@ -53,7 +53,7 @@ public class ChessBoard : MonoBehaviour
     public void CellSelected(Vector3 input)
     {
         Vector2Int coords = CalcCoordsFromPos(input);
-        Piece piece = GetPieceOnSquare(coords);
+        Piece piece = GetPieceOnCell(coords);
 
         if (pieceSelected)
         {
@@ -62,7 +62,7 @@ public class ChessBoard : MonoBehaviour
             else if (piece != null && pieceSelected != piece && controller.IsFromActivePlayer(piece.team))
                 SelectPiece(piece);
             else if (pieceSelected.CanMoveTo(coords))
-                OnSelectedPieceMoved(coords, pieceSelected);
+                MoveSelected(coords, pieceSelected);
         }
         else
         {
@@ -71,48 +71,68 @@ public class ChessBoard : MonoBehaviour
         }
     }
 
-
-
+    /*
+     * Select the given piece
+     */
     private void SelectPiece(Piece piece)
     {
         pieceSelected = piece;
         List<Vector2Int> selection = pieceSelected.availableMoves;
     }
 
-
+    /*
+     * Deselect the piece by setting it to null
+     */
     private void DeselectPiece()
     {
         pieceSelected = null;
     }
-    private void OnSelectedPieceMoved(Vector2Int coords, Piece piece)
+
+    /*
+     * Move the selected piece to the given coordinates
+     */
+    private void MoveSelected(Vector2Int coordinates, Piece piece)
     {
-        UpdateBoardOnPieceMove(coords, piece.occupiedSquare, piece, null);
-        pieceSelected.MovePiece(coords);
+        MovePiecesOnBoard(coordinates, piece.occupiedSquare, piece, null);
+        pieceSelected.MovePiece(coordinates);
         DeselectPiece();
         CompleteTurn();
     }
 
+    /*
+     * Finish the turn
+     */
     private void CompleteTurn()
     {
         controller.CompleteTurn();
     }
 
-    private void UpdateBoardOnPieceMove(Vector2Int newCoords, Vector2Int oldCoords, Piece newPiece, Piece oldPiece)
+    /*
+     * Update the board by moving the piece
+     */
+    private void MovePiecesOnBoard(Vector2Int newCoordinates, Vector2Int oldCoordinates, Piece newPiece, Piece oldPiece)
     {
-        grid[oldCoords.x, oldCoords.y] = oldPiece;
-        grid[newCoords.x, newCoords.y] = newPiece;
+        grid[oldCoordinates.x, oldCoordinates.y] = oldPiece;
+        grid[newCoordinates.x, newCoordinates.y] = newPiece;
     }
 
-    public Piece GetPieceOnSquare(Vector2Int coords)
+    public Piece GetPieceOnCell(Vector2Int coordinates)
     {
-        if (CheckIfCoordinatesAreOnBoard(coords))
-            return grid[coords.x, coords.y];
-        return null;
+        if (WithinBounds(coordinates))
+        {
+            return grid[coordinates.x, coordinates.y];
+        } else
+        {
+            return null;
+        }
     }
 
-    public bool CheckIfCoordinatesAreOnBoard(Vector2Int coords)
+    /*
+     * Check if the given coordinates are within the bounds
+     */
+    public bool WithinBounds(Vector2Int coordinates)
     {
-        if (coords.x < 0 || coords.y < 0 || coords.x >= CHESS_BRD_SIZE || coords.y >= CHESS_BRD_SIZE)
+        if (coordinates.x < 0 || coordinates.y < 0 || coordinates.x >= CHESS_BRD_SIZE || coordinates.y >= CHESS_BRD_SIZE)
             return false;
         return true;
     }
@@ -133,10 +153,12 @@ public class ChessBoard : MonoBehaviour
         return false;
     }
 
-    public void setPiecesOnBoard(Vector2Int coords, Piece piece)
+    public void PlacePiecesOnBoard(Vector2Int coordinates, Piece piece)
     {
-        if (CheckIfCoordinatesAreOnBoard(coords))
-            grid[coords.x, coords.y] = piece;
+        if (WithinBounds(coordinates))
+        {
+            grid[coordinates.x, coordinates.y] = piece;
+        }
     }
 
 }
