@@ -212,6 +212,7 @@ Transform:
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -295,6 +296,7 @@ Transform:
   m_LocalRotation: {x: 0.36934078, y: 0.0014191669, z: -0.0005640378, w: 0.9292928}
   m_LocalPosition: {x: -20.2, y: -2.9, z: -6.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -329,8 +331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8e77ef76b8f6a41b696ca745bb1228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardLayout: {fileID: 11400000, guid: 6c6433389a9345a47b480f9484dc780d, type: 2}
-  ChessBoard: {fileID: 1380036122}
+  brdLayout: {fileID: 11400000, guid: 6c6433389a9345a47b480f9484dc780d, type: 2}
+  brd: {fileID: 1380036122}
 --- !u!114 &1065565001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,15 +345,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b43124508b77740afdefa64be93484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chessPieceObj:
-  - {fileID: 2605133387645129641, guid: fcd00c0abcde90d478c73c16eeecc12a, type: 3}
-  - {fileID: 6292813087354887941, guid: 382623631f85aee439629ef160ab993a, type: 3}
-  - {fileID: 5649100893139594833, guid: b8233b3b8567e2b499e3c1b844aeb52a, type: 3}
-  - {fileID: 7860150023742840390, guid: 84ed51cc66d5c7a4992708d74bd80818, type: 3}
-  - {fileID: 6922725084909636798, guid: 20dbf570b880d604a9bd449a312f1177, type: 3}
+  piecePrefabs:
   - {fileID: 2794393535577314892, guid: 69dfc7dab96b5a747978816536b700e4, type: 3}
-  blcMat: {fileID: 2100000, guid: 0fb9b43c01de756438e67d7d6c5c9ea1, type: 2}
-  whiteMat: {fileID: 2100000, guid: ee7b7c873755a1d47bc3fbf9e5a736fa, type: 2}
+  - {fileID: 6922725084909636798, guid: 20dbf570b880d604a9bd449a312f1177, type: 3}
+  - {fileID: 7860150023742840390, guid: 84ed51cc66d5c7a4992708d74bd80818, type: 3}
+  - {fileID: 5649100893139594833, guid: b8233b3b8567e2b499e3c1b844aeb52a, type: 3}
+  - {fileID: 6292813087354887941, guid: 382623631f85aee439629ef160ab993a, type: 3}
+  - {fileID: 2605133387645129641, guid: fcd00c0abcde90d478c73c16eeecc12a, type: 3}
+  blackMaterial: {fileID: 2100000, guid: 0fb9b43c01de756438e67d7d6c5c9ea1, type: 2}
+  whiteMaterial: {fileID: 2100000, guid: ee7b7c873755a1d47bc3fbf9e5a736fa, type: 2}
 --- !u!4 &1065565002
 Transform:
   m_ObjectHideFlags: 0
@@ -362,6 +364,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -20.163929, y: -11.220995, z: 5.293528}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -392,6 +395,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1380036124}
   m_Father: {fileID: 0}
@@ -428,7 +432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cellSize: 1.5
-  downLeftCellTrans: {fileID: 1663288990}
+  bottomLeftCell: {fileID: 1663288990}
 --- !u!114 &1380036123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,6 +547,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1663288990}
   m_Father: {fileID: 1380036124}
@@ -624,6 +629,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 5.39, y: 1.08, z: -5.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1483983468}
   m_RootOrder: 0

@@ -5,139 +5,138 @@ using UnityEngine;
 
 public class ChessBoard : MonoBehaviour
 {
-    [SerializeField] private float cellSize;
-    [SerializeField] private Transform downLeftCellTrans;
-    //size of our chess board
-    public const int CHESS_BOARD_SIZE = 8;
 
-    private Piece[,] grid;// 2d array to keep track of which piece is in which square
-    private GameController gameController;
+    [SerializeField] private float cellSize;
+    [SerializeField] private Transform bottomLeftCell;
+
+    public const int CHESS_BRD_SIZE = 8;
+
+    private Piece[,] grid;
     private Piece pieceSelected;
+    private GameController controller;
+
 
     private void Awake()
     {
-        initialiseGrid();
+        SetupGrid();
     }
 
-    public void SetDependencies(GameController gameController)
+    public void SetDependencies(GameController controller)
     {
-        this.gameController = gameController;
+        this.controller = controller;
     }
 
-    private void initialiseGrid()
+
+    /*
+     * Create the grid
+     */
+    private void SetupGrid()
     {
-        grid = new Piece[CHESS_BOARD_SIZE, CHESS_BOARD_SIZE];
+        grid = new Piece[CHESS_BRD_SIZE, CHESS_BRD_SIZE];
     }
 
-    public Vector3 CalculateLoctionAtCoordinates(Vector2Int coordinates)
+    public Vector3 CalcPosFromCoords(Vector2Int coords)
     {
-        return downLeftCellTrans.position + new Vector3(coordinates.x * cellSize, 0f, coordinates.y * cellSize);
+        return bottomLeftCell.position + new Vector3(coords.x * cellSize, 0f, coords.y * cellSize);
     }
 
-    // Convert the passed position to a square coordinate
-    private Vector2Int CalculateLoctionAtCoordinates(Vector3 inputPos)
+    private Vector2Int CalcCoordsFromPos(Vector3 input)
     {
-        int x = Mathf.FloorToInt(transform.InverseTransformPoint(inputPos).x / cellSize) + CHESS_BOARD_SIZE / 2;
-        int y = Mathf.FloorToInt(transform.InverseTransformPoint(inputPos).z / cellSize) + CHESS_BOARD_SIZE / 2;
+        int x = Mathf.FloorToInt(transform.InverseTransformPoint(input).x / cellSize) + CHESS_BRD_SIZE / 2;
+        int y = Mathf.FloorToInt(transform.InverseTransformPoint(input).z / cellSize) + CHESS_BRD_SIZE / 2;
         return new Vector2Int(x, y);
     }
 
-    public void onCellSelected(Vector3 inputPos)
+    /*
+     * Allows the user to select/deselect a cell to move the piece
+     */
+    public void CellSelected(Vector3 input)
     {
-        Vector2Int coords = CalculateLoctionAtCoordinates(inputPos);
-        Piece p = getPieceAt(coords); // check which piece is located at the calculated coordinates
-        if (pieceSelected)// a piece is selected
+        Vector2Int coords = CalcCoordsFromPos(input);
+        Piece piece = GetPieceOnSquare(coords);
+
+        if (pieceSelected)
         {
-            if (p != null && pieceSelected == p)
-            {
-                deselectPiece();
-            }
-            else if (p != null && gameController.isFromActivePlayer(p.teamColour) && pieceSelected != p)
-            {
-                choosePiece(p);
-            }
-            else if (pieceSelected.AbleToMoveTo(coords))
-            {
-                moveSelectedPiece(coords, pieceSelected);
-            }
-            else // no piece is selected
-            {
-                if (p != null && gameController.isFromActivePlayer(p.teamColour))
-                {
-                    choosePiece(p);
-                }
-            }
+            if (piece != null && pieceSelected == piece)
+                DeselectPiece();
+            else if (piece != null && pieceSelected != piece && controller.IsFromActivePlayer(piece.team))
+                SelectPiece(piece);
+            else if (pieceSelected.CanMoveTo(coords))
+                OnSelectedPieceMoved(coords, pieceSelected);
+        }
+        else
+        {
+            if (piece != null && controller.IsFromActivePlayer(piece.team))
+                SelectPiece(piece);
         }
     }
 
-    private void moveSelectedPiece(Vector2Int coords, Piece p)
+
+
+    private void SelectPiece(Piece piece)
     {
-        // update the board by passing the new coordinates
-        addPieceMoveToBoard(coords, p.unavailableCell, p, null);
-        pieceSelected.MoveChessPiece(coords);// move the piece to the given coordinates
-        deselectPiece();
-        turnCompleted();
+        pieceSelected = piece;
+        List<Vector2Int> selection = pieceSelected.availableMoves;
     }
 
-    private void turnCompleted()
-    {
-        gameController.completeTurn();
-    }
 
-    private void addPieceMoveToBoard(Vector2Int newCoordinates, Vector2Int oldCoordinates, Piece newP, Piece oldP)
-    {
-        grid[oldCoordinates.x, oldCoordinates.y] = oldP;
-        grid[newCoordinates.x, newCoordinates.y] = newP;
-    }
-
-    private void choosePiece(Piece p)
-    {
-        pieceSelected = p;
-    }
-
-    private void deselectPiece()
+    private void DeselectPiece()
     {
         pieceSelected = null;
     }
-
-    private Piece getPieceAt(Vector2Int coords)
+    private void OnSelectedPieceMoved(Vector2Int coords, Piece piece)
     {
-        if (withinBounds(coords))// check if coordinates passed are not outside the bounds
-            return grid[coords.x, coords.y];
-        return null;// if coordinates are not within the bounds, return null
+        UpdateBoardOnPieceMove(coords, piece.occupiedSquare, piece, null);
+        pieceSelected.MovePiece(coords);
+        DeselectPiece();
+        CompleteTurn();
     }
 
-    // Check if the chess board already contains the piece
-    public bool alreadyContains(Piece p)
+    private void CompleteTurn()
     {
-        for (int i = 0; i < CHESS_BOARD_SIZE; i++) //iterate through the rows
+        controller.CompleteTurn();
+    }
+
+    private void UpdateBoardOnPieceMove(Vector2Int newCoords, Vector2Int oldCoords, Piece newPiece, Piece oldPiece)
+    {
+        grid[oldCoords.x, oldCoords.y] = oldPiece;
+        grid[newCoords.x, newCoords.y] = newPiece;
+    }
+
+    public Piece GetPieceOnSquare(Vector2Int coords)
+    {
+        if (CheckIfCoordinatesAreOnBoard(coords))
+            return grid[coords.x, coords.y];
+        return null;
+    }
+
+    public bool CheckIfCoordinatesAreOnBoard(Vector2Int coords)
+    {
+        if (coords.x < 0 || coords.y < 0 || coords.x >= CHESS_BRD_SIZE || coords.y >= CHESS_BRD_SIZE)
+            return false;
+        return true;
+    }
+
+    /*
+     * Check if the grid already contains the given piece
+     */
+    public bool AlreadyContains(Piece p)
+    {
+        for (int i = 0; i < CHESS_BRD_SIZE; i++)
         {
-            for (int j = 0; j < CHESS_BOARD_SIZE; j++) //iterate through the columns
+            for (int j = 0; j < CHESS_BRD_SIZE; j++)
             {
-                if (grid[i, j] == p)// grid contains the given piece
-                {
+                if (grid[i, j] == p)
                     return true;
-                }
             }
         }
         return false;
     }
 
-    public void setPiecesOnBoard(Vector2Int coords, Piece newChessPiece)
+    public void setPiecesOnBoard(Vector2Int coords, Piece piece)
     {
-        // check if the coordinates passed through the parameter are within the bounds
-        if (withinBounds(coords))
-        {
-            grid[coords.x, coords.y] = newChessPiece;// set the piece to the given coordinates
-        }
-        
+        if (CheckIfCoordinatesAreOnBoard(coords))
+            grid[coords.x, coords.y] = piece;
     }
 
-    // Check if coordinates passed are within the bounds
-    private bool withinBounds(Vector2Int coords)
-    {
-        if (coords.x < 0 || coords.y < 0 || coords.x >= CHESS_BOARD_SIZE || coords.y >= CHESS_BOARD_SIZE)
-            return false;
-        return true;
-    }
 }

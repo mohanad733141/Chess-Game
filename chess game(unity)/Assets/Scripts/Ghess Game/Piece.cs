@@ -7,29 +7,28 @@ using UnityEngine;
 [RequireComponent(typeof(IObjectTweener))]
 public abstract class Piece : MonoBehaviour
 {
-    public List<Vector2Int> movesAvailable;
-    private MaterialSetter matSetter;
+    public List<Vector2Int> availableMoves;
+    private MaterialSetter materialSetter;
 
-
-    public Vector2Int unavailableCell
+    public Vector2Int occupiedSquare
     {
         get;
         set;
     }
 
-    public ChessBoard chessBoard
+    public ChessBoard board
     {
         protected get;
         set;
     }
 
-    public bool piecemoved
+    public bool hasMoved
     {
         get;
         private set;
     }
 
-    public TeamColour teamColour
+    public TeamColour team
     {
         get;
         set;
@@ -37,54 +36,54 @@ public abstract class Piece : MonoBehaviour
 
     private IObjectTweener tweener;
 
-    public abstract List<Vector2Int> SelectAvailableCells();
+    public abstract List<Vector2Int> SelectAvailableSquares();
 
     private void Awake()
     {
         tweener = GetComponent<IObjectTweener>();
-        matSetter = GetComponent<MaterialSetter>();
-        movesAvailable = new List<Vector2Int>();
-        piecemoved = false;
+        materialSetter = GetComponent<MaterialSetter>();
+        availableMoves = new List<Vector2Int>();
+        hasMoved = false;
     }
 
-    public void SetTeamMaterial(Material m)
+    public void SetTeamMaterial(Material material)
     {
-        if (matSetter == null)
-            matSetter = GetComponent<MaterialSetter>();
-        matSetter.setMat(m);
+        if (materialSetter == null)
+            materialSetter = GetComponent<MaterialSetter>();
+        materialSetter.SetSingleMaterial(material);
     }
 
-    public bool sameTeam(Piece p)
+    public bool IsFromSameTeam(Piece piece)
     {
-        return teamColour == p.teamColour;
+        return team == piece.team;
     }
 
     // Check if the passed coordinate exists in the list
-    public bool AbleToMoveTo(Vector2Int coordinates)
+    public bool CanMoveTo(Vector2Int coords)
     {
-        return movesAvailable.Contains(coordinates);
+        return availableMoves.Contains(coords);
     }
 
-    public virtual void MoveChessPiece(Vector2Int coordinates)
+    public virtual void MovePiece(Vector2Int coords)
     {
-        Vector3 positionToMoveTo = chessBoard.CalculateLoctionAtCoordinates(coordinates);// calculate the position
-        unavailableCell = coordinates;// cell is now unavailable after the player has moved there
-        piecemoved = true;
-        tweener.MoveTo(transform, positionToMoveTo);
+        Vector3 targetPosition = board.CalcPosFromCoords(coords);// calculate the position
+        occupiedSquare = coords;// cell is now unavailable after the player has moved there
+        hasMoved = true;
+        tweener.MoveTo(transform, targetPosition);
     }
 
     // Add the coordinates to the list
-    protected void AddMove(Vector2Int coordinates)
+    protected void TryToAddMove(Vector2Int coords)
     {
-        movesAvailable.Add(coordinates);
+        availableMoves.Add(coords);
     }
 
-    public void assignData(Vector2Int coordinates, TeamColour teamColour, ChessBoard chessBoard)
+    public void assignData(Vector2Int coords, TeamColour team, ChessBoard board)
     {
-        this.teamColour = teamColour;
-        unavailableCell = coordinates;
-        this.chessBoard = chessBoard;
-        transform.position = chessBoard.CalculateLoctionAtCoordinates(coordinates);
+        this.team = team;
+        occupiedSquare = coords;
+        this.board = board;
+        transform.position = board.CalcPosFromCoords(coords);
     }
 
 }

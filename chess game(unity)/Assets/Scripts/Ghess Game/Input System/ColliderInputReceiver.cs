@@ -4,29 +4,34 @@ using UnityEngine;
 
 public class ColliderInputReceiver : InputReceiver
 {
-    private Vector3 selectedPos;
+    private Vector3 clickPosition;
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))// left mouse button has been clicked
         {
+            //Debug.Log("Player selected");
+
             // Reference: https://answers.unity.com/questions/532509/i-dont-understand-rayraycastraycasthit-.html#:~:text=The%20RaycastHit%20is%20the%20structure,in%20the%20raycast%20hit%20struct.
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
-                selectedPos = hit.point;
-                onInput();
+                clickPosition = hit.point;
+                OnInputReceived();
             }
         }
     }
 
-    public override void onInput()
+    public override void OnInputReceived()
     {
         //for (int i = 0; i < inputHandlers.Length; i++)
-        foreach(var h in inputHandlers)
+        //{
+        //    inputHandlers[i].processInput(selectedPos, null, null);
+        //}
+        foreach (var handler in inputHandlers)
         {
-            h.processInput(selectedPos, null, null);
+            handler.ProcessInput(clickPosition, null, null);
         }
     }
 }

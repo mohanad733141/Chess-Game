@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player
 {
-    public ChessBoard ChessBoard
+    public ChessBoard board
     {
         get;
         set;
@@ -17,46 +17,52 @@ public class Player
     }
 
     // List containing pieces of the active player's team
-    public List<Piece> activePlayerPieces
+    public List<Piece> activePieces
     {
         get;
         private set;
     }
 
-    public Player(ChessBoard chessBoard, TeamColour team)
+    public Player(ChessBoard board, TeamColour teamColour)
     {
-        activePlayerPieces = new List<Piece>();
-        this.ChessBoard = chessBoard;
-        this.team = team;
+        activePieces = new List<Piece>();
+        this.board = board;
+        this.team = teamColour;
     }
 
     // Add the available pieces in the active player's pieces list
-    public void addActivePiece(Piece p)
+    public void AddActivePiece(Piece piece)
     {
 
-        if (!activePlayerPieces.Contains(p))
+        if (!activePieces.Contains(piece))
         {// the list does not contain the given piece
-            activePlayerPieces.Add(p);// add the piece to the list
+            activePieces.Add(piece);// add the piece to the list
         }
     }
 
     // Remove the piece if it already exists
-    public void removeActivePiece(Piece p)
+    public void RemovePiece(Piece piece)
     {
-        if (activePlayerPieces.Contains(p))// list contains the given piece
+        if (activePieces.Contains(piece))// list contains the given piece
         {
-            activePlayerPieces.Remove(p);// remove the piece from the list
+            activePieces.Remove(piece);// remove the piece from the list
         }
     }
 
-    public void createPossibleMoves()
+    public void CreatePossibleMoves()
     {
         //for (int i = 0; i < activePlayerPieces.Count; i++)// iterate through the list
-        foreach (var p in activePlayerPieces )
+        //{
+        //    if (ChessBoard.alreadyContains(activePlayerPieces[i]))
+        //    {// piece is on the chess board
+        //        activePlayerPieces[i].SelectAvailableCells();// select the cells available
+        //    }
+        //}
+        foreach (var piece in activePieces)
         {
-            if (ChessBoard.alreadyContains(p))
-            {// piece is on the chess board
-                p.SelectAvailableCells();// select the cells available
+            if (board.AlreadyContains(piece))
+            {
+                piece.SelectAvailableSquares();
             }
         }
     }

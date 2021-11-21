@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Knight : Piece
 {
-    public override List<Vector2Int> SelectAvailableCells()
+    public override List<Vector2Int> SelectAvailableSquares()
     {
-        movesAvailable.Clear();
-        movesAvailable.Add(unavailableCell + new Vector2Int(0, 1));
-        return movesAvailable;
+        availableMoves.Clear();
+        availableMoves.Add(occupiedSquare + new Vector2Int(0, 1));
+        return availableMoves;
     }
 }

@@ -6,15 +6,15 @@ using UnityEngine;
 [RequireComponent(typeof(ChessBoard))]
 public class BoardInputHandler : MonoBehaviour, IInputHandler
 {
-    private ChessBoard chessBoard;
+    private ChessBoard board;
 
     private void Awake()
     {
-        chessBoard = GetComponent<ChessBoard>();
+        board = GetComponent<ChessBoard>();
     }
 
-    public void processInput(Vector3 inputPos, GameObject objsSelected, Action callback)
+    public void ProcessInput(Vector3 inputPosition, GameObject selectedObject, Action callback)
     {
-        chessBoard.onCellSelected(inputPos);
+        board.CellSelected(inputPosition);
     }
 }

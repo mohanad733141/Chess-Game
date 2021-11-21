@@ -21,8 +21,9 @@ public class MaterialSetter : MonoBehaviour
         }
     }
 
-    public void setMat(Material m)
+    public void SetSingleMaterial(Material m)
     {
         meshRenComp.material = m;
     }
 }
+

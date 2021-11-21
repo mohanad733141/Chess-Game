@@ -5,34 +5,33 @@ using System;
 
 public class PieceCreator : MonoBehaviour
 {
-    [SerializeField] private GameObject[] chessPieceObj;
-    [SerializeField] private Material blcMat;
-    [SerializeField] private Material whiteMat;
+    [SerializeField] private GameObject[] piecePrefabs;
+    [SerializeField] private Material blackMaterial;
+    [SerializeField] private Material whiteMaterial;
 
-    private Dictionary<string, GameObject> mapPieceToName = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> nameToPieceDict = new Dictionary<string, GameObject>();
 
     private void Awake()
     {
-        foreach (var chessObj in chessPieceObj)
+        foreach (var piece in piecePrefabs)
         {
-            mapPieceToName.Add(chessObj.GetComponent<Piece>().GetType().ToString(), chessObj);
+            nameToPieceDict.Add(piece.GetComponent<Piece>().GetType().ToString(), piece);
         }
     }
-    
-    public GameObject MakeNewPieces(Type ChessPieceType)
+
+    public GameObject MakeNewPieces(Type type)
     {
-        GameObject tempPiece = mapPieceToName[ChessPieceType.ToString()];
-        if(tempPiece)
+        GameObject prefab = nameToPieceDict[type.ToString()];
+        if (prefab)
         {
-            GameObject newChessPiece = Instantiate(tempPiece);
-            return newChessPiece;
-            //here we create the new piece 
+            GameObject newPiece = Instantiate(prefab);
+            return newPiece;
         }
         return null;
     }
 
     public Material getEachPlayerMaterial(TeamColour team)
     {
-        return team == TeamColour.White ? whiteMat : blcMat;
+        return team == TeamColour.White ? whiteMaterial : blackMaterial;
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(PieceCreator))]
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private ChessBoardLayout boardLayout;
+    [SerializeField] private ChessBoardLayout brdLayout;
 
     private PieceCreator pieceMaker;
     // 2 players for the game
@@ -15,15 +15,15 @@ public class GameController : MonoBehaviour
     private Player playerBlack;
     // active player making the move
     private Player playerActive;
-    [SerializeField] private ChessBoard ChessBoard;
+    [SerializeField] private ChessBoard brd;
 
     private void Awake()
     {
-        setDependencies();
-        setUpPlayers();
+        SetDependencies();
+        SetUpPlayers();
     }
 
-    private void setDependencies()
+    private void SetDependencies()
     {
         pieceMaker = GetComponent<PieceCreator>();
     }
@@ -31,110 +31,116 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        newGame();
+        NewGame();
     }
 
-    private void newGame()
+    private void NewGame()
     {
-        ChessBoard.SetDependencies(this);
-        makePieces(boardLayout);
+        brd.SetDependencies(this);
+        MakePieces(brdLayout);
         playerActive = playerWhite;// white player is the first player to choose a move
-        createPossibleMoves(playerActive);
+        CreatePossibleMoves(playerActive);
     }
 
-    // Create the players
-    private void setUpPlayers()
+    /* 
+     * Create the players
+     */
+    private void SetUpPlayers()
     {
-        playerWhite = new Player(ChessBoard, TeamColour.White);
-        playerBlack = new Player(ChessBoard, TeamColour.Black);
+        playerWhite = new Player(brd, TeamColour.White);
+        playerBlack = new Player(brd, TeamColour.Black);
     }
 
-    private void makePieces(ChessBoardLayout boardLayout)
+    /*
+     * Generate the pieces
+     */
+    private void MakePieces(ChessBoardLayout brdLayout)
     {
-        for (int i = 0; i < boardLayout.GetPiecesNum(); i++)
+        for (int i = 0; i < brdLayout.GetPiecesNum(); i++)
         {
-            Vector2Int squareCoordinates = boardLayout.GetBoxLocationAtPosition(i);
-            TeamColour playerColour = boardLayout.GetBoxColourAtPosition(i);
-            string name = boardLayout.GetBoxPieceNameAtPosition(i);
+            Vector2Int squareCoordinates = brdLayout.GetBoxLocationAtPosition(i);
+            TeamColour playerColour = brdLayout.GetBoxColourAtPosition(i);
+            string name = brdLayout.GetBoxPieceNameAtPosition(i);
 
             Type pieceType = Type.GetType(name);
-            initializePieces(squareCoordinates, playerColour, pieceType);
+            InitializePieces(squareCoordinates, playerColour, pieceType);
         }
     }
 
-    public bool isFromActivePlayer(TeamColour team)
+    public bool IsFromActivePlayer(TeamColour team)
     {
-        //if(playerActive.team == team)
-        // {
-        //     return true;
-        // }
-        // return false;
-        return playerActive.team == team;
+        if (playerActive.team == team)
+        {
+            return true;
+        }
+        return false;
     }
 
-    private void initializePieces(Vector2Int squareCoordinates, TeamColour teamColour, Type type)
+    private void InitializePieces(Vector2Int squareCoordinates, TeamColour teamColour, Type type)
     {
         Piece newChessPiece = pieceMaker.MakeNewPieces(type).GetComponent<Piece>();
-        newChessPiece.assignData(squareCoordinates, teamColour, ChessBoard);
+        newChessPiece.assignData(squareCoordinates, teamColour, brd);
 
         Material tMat = pieceMaker.getEachPlayerMaterial(teamColour);
         newChessPiece.SetTeamMaterial(tMat);
-        ChessBoard.setPiecesOnBoard(squareCoordinates, newChessPiece);// move the piece to the new location
-        //Player playerCurrent = null;
-        //if (teamColour == TeamColour.White)
-        //{
-        //    playerCurrent = playerWhite;
-        //}
-        //else if (teamColour == TeamColour.Black)
-        //{
-        //    playerCurrent = playerBlack;
-        //}
-        //playerCurrent.addActivePiece(newChessPiece);
-        Player playerCurrent = teamColour == TeamColour.White ? playerWhite : playerBlack;
-        playerCurrent.addActivePiece(newChessPiece);
+        brd.setPiecesOnBoard(squareCoordinates, newChessPiece);// move the piece to the new location
+        Player playerCurrent = null;
+        if (teamColour == TeamColour.White)
+        {
+            playerCurrent = playerWhite;
+        }
+        else if (teamColour == TeamColour.Black)
+        {
+            playerCurrent = playerBlack;
+        }
+        playerCurrent.AddActivePiece(newChessPiece);
     }
 
-    public void completeTurn()
+    /*
+     * Finish the turn for the player who just had their turn
+     */
+    public void CompleteTurn()
     {
-        createPossibleMoves(playerActive);
-        createPossibleMoves(changeTurn(playerActive));
-        nextPlayerTurn();
+        CreatePossibleMoves(playerActive);
+        CreatePossibleMoves(ChangeTurn(playerActive));
+        NextPlayerTurn();
     }
 
-    // change the active player
-    private void nextPlayerTurn()
+    /*
+     * Switch between the players' turns
+     */
+    private void NextPlayerTurn()
     {
-        //if (playerActive == playerBlack)
-        //{
-        //    playerActive = playerWhite;
-        //}
-        //else if (playerActive == playerWhite)
-        //{
-        //    playerActive = playerBlack;
-        //}
-        playerActive = playerActive == playerWhite ? playerBlack : playerWhite;
+        if (playerActive == playerBlack)
+        {
+            playerActive = playerWhite;
+        }
+        else if (playerActive == playerWhite)
+        {
+            playerActive = playerBlack;
+        }
     }
-
-    // Change the active player once they had their turn
-    private Player changeTurn(Player playerActive)
+    /* 
+     * Change the active player once they had their turn
+     */
+    private Player ChangeTurn(Player playerActive)
     {
-        //if(playerActive == playerWhite)
-        // {
-        //     playerActive = playerBlack;
-        // } else if(playerActive == playerBlack)
-        // {
-        //     playerActive = playerWhite;
-        // }
-        // return playerActive;
-        return playerActive == playerWhite ? playerBlack : playerWhite;
+        if (playerActive == playerWhite)
+        {
+            playerActive = playerBlack;
+        }
+        else if (playerActive == playerBlack)
+        {
+            playerActive = playerWhite;
+        }
+        return playerActive;
     }
 
-    // create the possible moves for the given player
-    private void createPossibleMoves(Player p)
+    /*
+     * Create all the possible moves for the given player
+     */
+    private void CreatePossibleMoves(Player p)
     {
-        p.createPossibleMoves();
-        
+        p.CreatePossibleMoves();
     }
-    
-
 }
