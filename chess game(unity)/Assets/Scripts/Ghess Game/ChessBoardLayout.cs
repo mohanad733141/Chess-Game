@@ -14,46 +14,46 @@ public class ChessBoardLayout :  ScriptableObject
         public PieceType PieceType;
     }
 
-    [SerializeField] private ChessSquareSetup[] ChessSquares;
+    [SerializeField] private ChessSquareSetup[] ChessCells;
 
     public Vector2Int GetBoxLocationAtPosition(int position)
     {
 
-        if (ChessSquares.Length <= position)
+        if (ChessCells.Length <= position)
         {
             Debug.LogError("index of piece is outside the board boundaries ");
             return new Vector2Int(-1, -1);
         }
-        return new Vector2Int(ChessSquares[position].location.x - 1, ChessSquares[position].location.y - 1);
+        return new Vector2Int(ChessCells[position].location.x - 1, ChessCells[position].location.y - 1);
 
     }
 
     public int GetPiecesNum()
     {
 
-        return ChessSquares.Length;
+        return ChessCells.Length;
 
     }
 
 
 
-    public TeamColour GetBoxColourAtPosition(int position)
+    public TeamColour GetBoxColourAtPosition(int location)
     {
-        if (ChessSquares.Length <= position)
+        if (ChessCells.Length <= location)
         {
             Debug.LogError("index of piece is outside the chessboard boundaries ");
             return TeamColour.Black;
         }
-        return ChessSquares[position].playerColour;
+        return ChessCells[location].playerColour;
     }
 
-    public string GetBoxPieceNameAtPosition(int position)
+    public string GetBoxPieceNameAtPosition(int location)
     {
-        if (ChessSquares.Length <= position)
+        if (ChessCells.Length <= location)
         {
             Debug.LogError("index of piece is outside the board boundaries ");
             return "";
         }
-        return ChessSquares[position].PieceType.ToString();
+        return ChessCells[location].PieceType.ToString();
     }
 }

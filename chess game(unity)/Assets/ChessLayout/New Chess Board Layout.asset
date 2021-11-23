@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ca24b1cc622ae469af339636e4b73c, type: 3}
   m_Name: New Chess Board Layout
   m_EditorClassIdentifier: 
-  ChessSquares:
+  ChessCells:
   - location: {x: 1, y: 1}
     playerColour: 1
     PieceType: 3

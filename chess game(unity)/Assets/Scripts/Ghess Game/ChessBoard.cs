@@ -50,24 +50,24 @@ public class ChessBoard : MonoBehaviour
     /*
      * Allows the user to select/deselect a cell to move the piece
      */
-    public void CellSelected(Vector3 input)
+    public void CellSelected(Vector3 atPostion)
     {
-        Vector2Int coords = CalcCoordsFromPos(input);
-        Piece piece = GetPieceOnCell(coords);
+        Vector2Int coords = CalcCoordsFromPos(atPostion);
+        Piece p = GetPieceOnCell(coords);
 
         if (pieceSelected)
         {
-            if (piece != null && pieceSelected == piece)
+            if (p != null && pieceSelected == p)
                 DeselectPiece();
-            else if (piece != null && pieceSelected != piece && controller.IsFromActivePlayer(piece.team))
-                SelectPiece(piece);
+            else if (p != null && pieceSelected != p && controller.IsFromActivePlayer(p.team))
+                SelectPiece(p);
             else if (pieceSelected.CanMoveTo(coords))
                 MoveSelected(coords, pieceSelected);
         }
         else
         {
-            if (piece != null && controller.IsFromActivePlayer(piece.team))
-                SelectPiece(piece);
+            if (p != null && controller.IsFromActivePlayer(p.team))
+                SelectPiece(p);
         }
     }
 
@@ -93,7 +93,7 @@ public class ChessBoard : MonoBehaviour
      */
     private void MoveSelected(Vector2Int coordinates, Piece piece)
     {
-        MovePiecesOnBoard(coordinates, piece.occupiedSquare, piece, null);
+        MovePiecesOnBoard(coordinates, piece.unavaliableSquare, piece, null);
         pieceSelected.MovePiece(coordinates);
         DeselectPiece();
         CompleteTurn();

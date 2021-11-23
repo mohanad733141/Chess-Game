@@ -69,7 +69,7 @@ public class GameController : MonoBehaviour
 
     public bool IsFromActivePlayer(TeamColour team)
     {
-        if (playerActive.team == team)
+        if (playerActive.playerColour == team)
         {
             return true;
         }

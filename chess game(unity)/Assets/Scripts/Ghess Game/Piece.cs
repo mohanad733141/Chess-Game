@@ -8,9 +8,9 @@ using UnityEngine;
 public abstract class Piece : MonoBehaviour
 {
     public List<Vector2Int> availableMoves;
-    private MaterialSetter materialSetter;
+    private MaterialSetter matSetter;
 
-    public Vector2Int occupiedSquare
+    public Vector2Int unavaliableSquare
     {
         get;
         set;
@@ -41,16 +41,16 @@ public abstract class Piece : MonoBehaviour
     private void Awake()
     {
         tweener = GetComponent<IObjectTweener>();
-        materialSetter = GetComponent<MaterialSetter>();
+        matSetter = GetComponent<MaterialSetter>();
         availableMoves = new List<Vector2Int>();
         hasMoved = false;
     }
 
     public void SetTeamMaterial(Material material)
     {
-        if (materialSetter == null)
-            materialSetter = GetComponent<MaterialSetter>();
-        materialSetter.SetSingleMaterial(material);
+        if (matSetter == null)
+            matSetter = GetComponent<MaterialSetter>();
+        matSetter.SetSingleMaterial(material);
     }
 
     public bool IsFromSameTeam(Piece piece)
@@ -67,7 +67,7 @@ public abstract class Piece : MonoBehaviour
     public virtual void MovePiece(Vector2Int coords)
     {
         Vector3 targetPosition = board.CalcPosFromCoords(coords);// calculate the position
-        occupiedSquare = coords;// cell is now unavailable after the player has moved there
+        unavaliableSquare = coords;// cell is now unavailable after the player has moved there
         hasMoved = true;
         tweener.MoveTo(transform, targetPosition);
     }
@@ -81,7 +81,7 @@ public abstract class Piece : MonoBehaviour
     public void assignData(Vector2Int coords, TeamColour team, ChessBoard board)
     {
         this.team = team;
-        occupiedSquare = coords;
+        unavaliableSquare = coords;
         this.board = board;
         transform.position = board.CalcPosFromCoords(coords);
     }

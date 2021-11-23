@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Player
 {
-    public ChessBoard board
+    public ChessBoard chessBoard
     {
         get;
         set;
     }
 
-    public TeamColour team
+    public TeamColour playerColour
     {
         get;
         set;
     }
 
     // List containing pieces of the active player's team
-    public List<Piece> activePieces
+    public List<Piece> activePlayerPieces
     {
         get;
         private set;
@@ -25,27 +25,27 @@ public class Player
 
     public Player(ChessBoard board, TeamColour teamColour)
     {
-        activePieces = new List<Piece>();
-        this.board = board;
-        this.team = teamColour;
+        activePlayerPieces = new List<Piece>();
+        this.chessBoard = board;
+        this.playerColour = teamColour;
     }
 
     // Add the available pieces in the active player's pieces list
     public void AddActivePiece(Piece piece)
     {
 
-        if (!activePieces.Contains(piece))
+        if (!activePlayerPieces.Contains(piece))
         {// the list does not contain the given piece
-            activePieces.Add(piece);// add the piece to the list
+            activePlayerPieces.Add(piece);// add the piece to the list
         }
     }
 
     // Remove the piece if it already exists
     public void RemovePiece(Piece piece)
     {
-        if (activePieces.Contains(piece))// list contains the given piece
+        if (activePlayerPieces.Contains(piece))// list contains the given piece
         {
-            activePieces.Remove(piece);// remove the piece from the list
+            activePlayerPieces.Remove(piece);// remove the piece from the list
         }
     }
 
@@ -58,11 +58,11 @@ public class Player
         //        activePlayerPieces[i].SelectAvailableCells();// select the cells available
         //    }
         //}
-        foreach (var piece in activePieces)
+        foreach (var p in activePlayerPieces)
         {
-            if (board.AlreadyContains(piece))
+            if (chessBoard.AlreadyContains(p))
             {
-                piece.SelectAvailableSquares();
+                p.SelectAvailableSquares();
             }
         }
     }

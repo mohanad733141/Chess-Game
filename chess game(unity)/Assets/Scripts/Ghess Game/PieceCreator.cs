@@ -6,8 +6,8 @@ using System;
 public class PieceCreator : MonoBehaviour
 {
     [SerializeField] private GameObject[] piecePrefabs;
-    [SerializeField] private Material blackMaterial;
-    [SerializeField] private Material whiteMaterial;
+    [SerializeField] private Material blcMat;
+    [SerializeField] private Material whiteMat;
 
     private Dictionary<string, GameObject> nameToPieceDict = new Dictionary<string, GameObject>();
 
@@ -19,19 +19,19 @@ public class PieceCreator : MonoBehaviour
         }
     }
 
-    public GameObject MakeNewPieces(Type type)
+    public GameObject MakeNewPieces(Type chessType)
     {
-        GameObject prefab = nameToPieceDict[type.ToString()];
-        if (prefab)
+        GameObject chessObj = nameToPieceDict[chessType.ToString()];
+        if (chessObj)
         {
-            GameObject newPiece = Instantiate(prefab);
-            return newPiece;
+            GameObject newChessPiece = Instantiate(chessObj);
+            return newChessPiece;
         }
         return null;
     }
 
     public Material getEachPlayerMaterial(TeamColour team)
     {
-        return team == TeamColour.White ? whiteMaterial : blackMaterial;
+        return team == TeamColour.White ? whiteMat : blcMat;
     }
 }
