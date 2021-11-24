@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CellSelector))]
 public class ChessBoard : MonoBehaviour
 {
 
@@ -14,11 +15,13 @@ public class ChessBoard : MonoBehaviour
     private Piece[,] grid;
     private Piece pieceSelected;
     private GameController controller;
+    private CellSelector cellSelector;
 
 
     private void Awake()
     {
         SetupGrid();
+        cellSelector = GetComponent<CellSelector>();
     }
 
     public void SetDependencies(GameController controller)
@@ -78,6 +81,19 @@ public class ChessBoard : MonoBehaviour
     {
         pieceSelected = piece;
         List<Vector2Int> selection = pieceSelected.applicableChessMoves;
+        showSelectableCells(selection);
+    }
+
+    private void showSelectableCells(List<Vector2Int> selection)
+    {
+        Dictionary<Vector3, bool> cellInfo = new Dictionary<Vector3, bool>();
+        for(int i = 0; i < selection.Count; i++)
+        {
+            Vector3 pos = CalcPosFromCoords(selection[i]);
+            bool isCellFree = GetPieceOnCell(selection[i]) == null;
+            cellInfo.Add(pos, isCellFree);
+        }
+        cellSelector.displaySelectedCell(cellInfo);
     }
 
     /*
@@ -86,6 +102,7 @@ public class ChessBoard : MonoBehaviour
     private void DeselectPiece()
     {
         pieceSelected = null;
+        cellSelector.resetSelectedCell();
     }
 
     /*
