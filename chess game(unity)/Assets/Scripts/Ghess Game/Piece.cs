@@ -7,12 +7,12 @@ using UnityEngine;
 [RequireComponent(typeof(IObjectTweener))]
 public abstract class Piece : MonoBehaviour
 {
-    public List<Vector2Int> availableMoves;
+    public List<Vector2Int> applicableChessMoves;
     private MaterialSetter matSetter;
 
     public Vector2Int unavaliableSquare
     {
-        get;
+        get;  
         set;
     }
 
@@ -42,7 +42,7 @@ public abstract class Piece : MonoBehaviour
     {
         tweener = GetComponent<IObjectTweener>();
         matSetter = GetComponent<MaterialSetter>();
-        availableMoves = new List<Vector2Int>();
+        applicableChessMoves = new List<Vector2Int>();
         hasMoved = false;
     }
 
@@ -61,10 +61,10 @@ public abstract class Piece : MonoBehaviour
     // Check if the passed coordinate exists in the list
     public bool CanMoveTo(Vector2Int coords)
     {
-        return availableMoves.Contains(coords);
+        return applicableChessMoves.Contains(coords);
     }
 
-    public virtual void MovePiece(Vector2Int coords)
+    public virtual void MoveChessPiece(Vector2Int coords)
     {
         Vector3 targetPosition = board.CalcPosFromCoords(coords);// calculate the position
         unavaliableSquare = coords;// cell is now unavailable after the player has moved there
@@ -75,7 +75,7 @@ public abstract class Piece : MonoBehaviour
     // Add the coordinates to the list
     protected void TryToAddMove(Vector2Int coords)
     {
-        availableMoves.Add(coords);
+        applicableChessMoves.Add(coords);
     }
 
     public void assignData(Vector2Int coords, TeamColour team, ChessBoard board)

@@ -4,10 +4,33 @@ using UnityEngine;
 
 public class Rook : Piece
 {
+    private Vector2Int[] directions = new Vector2Int[] { Vector2Int.left, Vector2Int.up, Vector2Int.right, Vector2Int.down};
+
+         
     public override List<Vector2Int> SelectAvailableSquares()
     {
-        availableMoves.Clear();
-        availableMoves.Add(unavaliableSquare + new Vector2Int(0, 1));
-        return availableMoves;
+        applicableChessMoves.Clear();
+        float chessBoardRange = ChessBoard.CHESS_BRD_SIZE;
+        foreach (var direction in directions)
+        {
+            for (int i = 1; i < chessBoardRange; i++)
+            {
+
+                Vector2Int followingCoordinates = unavaliableSquare + direction * i;
+                Piece ChessPiece = board.GetPieceOnCell(followingCoordinates);
+                if (!board.WithinBounds(followingCoordinates))
+                    break;
+                if (ChessPiece == null)
+                    TryToAddMove(followingCoordinates);
+                else if (!ChessPiece.IsFromSameTeam(this))
+                {
+                    TryToAddMove(followingCoordinates);
+                    break;
+                }
+                else if (ChessPiece.IsFromSameTeam(this))
+                    break;
+            }
+        }
+        return applicableChessMoves;
     }
 }

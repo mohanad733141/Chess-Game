@@ -77,7 +77,7 @@ public class ChessBoard : MonoBehaviour
     private void SelectPiece(Piece piece)
     {
         pieceSelected = piece;
-        List<Vector2Int> selection = pieceSelected.availableMoves;
+        List<Vector2Int> selection = pieceSelected.applicableChessMoves;
     }
 
     /*
@@ -94,7 +94,7 @@ public class ChessBoard : MonoBehaviour
     private void MoveSelected(Vector2Int coordinates, Piece piece)
     {
         MovePiecesOnBoard(coordinates, piece.unavaliableSquare, piece, null);
-        pieceSelected.MovePiece(coordinates);
+        pieceSelected.MoveChessPiece(coordinates);
         DeselectPiece();
         CompleteTurn();
     }
