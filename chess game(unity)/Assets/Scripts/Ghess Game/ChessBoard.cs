@@ -14,7 +14,7 @@ public class ChessBoard : MonoBehaviour
 
     private Piece[,] grid;
     private Piece pieceSelected;
-    private GameController controller;
+    private GameController ChessController;
     private CellSelector cellSelector;
 
 
@@ -26,7 +26,7 @@ public class ChessBoard : MonoBehaviour
 
     public void SetDependencies(GameController controller)
     {
-        this.controller = controller;
+        this.ChessController = controller;
     }
 
 
@@ -54,7 +54,9 @@ public class ChessBoard : MonoBehaviour
      * Allows the user to select/deselect a cell to move the piece
      */
     public void CellSelected(Vector3 atPostion)
-    {
+    { if (!ChessController.IsGameInProgress())
+            return;
+    
         Vector2Int coords = CalcCoordsFromPos(atPostion);
         Piece p = GetPieceOnCell(coords);
 
@@ -62,14 +64,14 @@ public class ChessBoard : MonoBehaviour
         {
             if (p != null && pieceSelected == p)
                 DeselectPiece();
-            else if (p != null && pieceSelected != p && controller.IsFromActivePlayer(p.team))
+            else if (p != null && pieceSelected != p && ChessController.IsFromActivePlayer(p.team))
                 SelectPiece(p);
             else if (pieceSelected.CanMoveTo(coords))
                 MoveSelected(coords, pieceSelected);
         }
         else
         {
-            if (p != null && controller.IsFromActivePlayer(p.team))
+            if (p != null && ChessController.IsFromActivePlayer(p.team))
                 SelectPiece(p);
         }
     }
@@ -121,13 +123,13 @@ public class ChessBoard : MonoBehaviour
      */
     private void CompleteTurn()
     {
-        controller.CompleteTurn();
+        ChessController.CompleteTurn();
     }
 
     /*
      * Update the board by moving the piece
      */
-    private void MovePiecesOnBoard(Vector2Int newCoordinates, Vector2Int oldCoordinates, Piece newPiece, Piece oldPiece)
+    public void MovePiecesOnBoard(Vector2Int newCoordinates, Vector2Int oldCoordinates, Piece newPiece, Piece oldPiece)
     {
         grid[oldCoordinates.x, oldCoordinates.y] = oldPiece;
         grid[newCoordinates.x, newCoordinates.y] = newPiece;

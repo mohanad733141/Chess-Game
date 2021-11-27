@@ -7,7 +7,9 @@ using UnityEngine;
 [RequireComponent(typeof(PieceCreator))]
 public class GameController : MonoBehaviour
 {
+    private enum GameState { Init,Play,Finished }
     [SerializeField] private ChessBoardLayout brdLayout;
+    [SerializeField] private ChessBoard brd;
 
     private PieceCreator pieceMaker;
     // 2 players for the game
@@ -15,7 +17,9 @@ public class GameController : MonoBehaviour
     private Player playerBlack;
     // active player making the move
     private Player playerActive;
-    [SerializeField] private ChessBoard brd;
+    private GameState state;
+
+    
 
     private void Awake()
     {
@@ -36,10 +40,22 @@ public class GameController : MonoBehaviour
 
     private void NewGame()
     {
+        SetGameState(GameState, Init);
         brd.SetDependencies(this);
         MakePieces(brdLayout);
         playerActive = playerWhite;// white player is the first player to choose a move
         CreatePossibleMoves(playerActive);
+        SetGameState(GameState.Play)
+    }
+
+    private void SetGameState(GameState state)
+    {
+        this.state = state;
+    }
+
+    public bool IsGameInProgress()
+    {
+        return state == GameState.Play;
     }
 
     /* 
@@ -103,7 +119,36 @@ public class GameController : MonoBehaviour
     {
         CreatePossibleMoves(playerActive);
         CreatePossibleMoves(ChangeTurn(playerActive));
-        NextPlayerTurn();
+        if (CheckIfGameIsFinished())
+            EndGame();
+        else
+            NextPlayerTurn();
+    }
+
+    private bool CheckIfGameIsFinished()
+    {
+        Piece[] kingAttackingPieces= playerActive.GetPiecesAttackingOpponentPieceOfType<King> ()
+        if(kingAttackingPieces.Length>0)
+        {
+            Player oppositePlayer = ChangeTurn(playerActive);
+            Piece attackedKing = oppositePlayer.GetPiecesOfType<King>().FirstOrDefault();
+            oppositePlayer.RemovesEnablingAttackOnPieces<King>(playerActive, attackedKing);
+
+            int avaiableKingMoves = attackedKing.availableMoves.Count;
+            if(avaiableKingMoves==0)
+            {
+                bool canCoverKing = oppositePlayer.CanHidePieceFromAttack<King>(playerActive);
+                if (!canCoverKing)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    private void EndGame()
+    {
+        Debug.Log("Game Finished");
+        SetGameState(GameState.Finished);
     }
 
     /*
