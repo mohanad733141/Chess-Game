@@ -40,7 +40,6 @@ public class GameController : MonoBehaviour
 
     private void NewGame()
     {
-        SetGameState(GameState, Init);
         brd.SetDependencies(this);
         MakePieces(brdLayout);
         playerActive = playerWhite;// white player is the first player to choose a move
@@ -132,9 +131,9 @@ public class GameController : MonoBehaviour
         {
             Player oppositePlayer = ChangeTurn(playerActive);
             Piece attackedKing = oppositePlayer.GetPiecesOfType<King>().FirstOrDefault();
-            oppositePlayer.RemovesEnablingAttackOnPieces<King>(playerActive, attackedKing);
+            oppositePlayer.RemovesMovesEnablingAttackOnPieces<King>(playerActive, attackedKing);
 
-            int avaiableKingMoves = attackedKing.availableMoves.Count;
+            int avaiableKingMoves = attackedKing.applicableChessMoves.Count;
             if(avaiableKingMoves==0)
             {
                 bool canCoverKing = oppositePlayer.CanHidePieceFromAttack<King>(playerActive);

@@ -80,7 +80,7 @@ public class Player
         return activePlayerPieces.Where(p => p is T).ToArray();
     }
 
-    public void RemovesMovesEnablingAttackOnPieces<T>(Player opponent, Piece pieceSelected) where T: Piece 
+    public void RemovesMovesEnablingAttackOnPieces<T>(Player opponent, Piece pieceSelected) where T: Piece
     {
         List<Vector2Int> coordsToRemove = new List<Vector2Int>();
         foreach(var coords in pieceSelected.applicableChessMoves)
@@ -93,7 +93,7 @@ public class Player
         }
         foreach(var coords in coordsToRemove)
         {
-            pieceSelected.avaiableMoves.Remove(coords);
+            pieceSelected.applicableChessMoves.Remove(coords);
         }
     
     }

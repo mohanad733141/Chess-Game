@@ -56,7 +56,6 @@ public class ChessBoard : MonoBehaviour
     public void CellSelected(Vector3 atPostion)
     { if (!ChessController.IsGameInProgress())
             return;
-    
         Vector2Int coords = CalcCoordsFromPos(atPostion);
         Piece p = GetPieceOnCell(coords);
 
