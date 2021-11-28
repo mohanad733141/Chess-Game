@@ -57,8 +57,8 @@ public abstract class Piece : MonoBehaviour
     {
         foreach(var square in applicableChessMoves)
         {
-            if(board.GetPieceOnCell(square) is T)
-                return true
+            if (board.GetPieceOnCell(square) is T)
+                return true;
         }
         return false;
     }

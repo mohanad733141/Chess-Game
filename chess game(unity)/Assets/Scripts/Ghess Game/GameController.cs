@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
         MakePieces(brdLayout);
         playerActive = playerWhite;// white player is the first player to choose a move
         CreatePossibleMoves(playerActive);
-        SetGameState(GameState.Play)
+        SetGameState(GameState.Play);
     }
 
     private void SetGameState(GameState state)
@@ -127,8 +127,8 @@ public class GameController : MonoBehaviour
 
     private bool CheckIfGameIsFinished()
     {
-        Piece[] kingAttackingPieces= playerActive.GetPiecesAttackingOpponentPieceOfType<King> ()
-        if(kingAttackingPieces.Length>0)
+        Piece[] kingAttackingPieces = playerActive.GetPiecesAttackingOpponentPieceOfType<King>();
+        if (kingAttackingPieces.Length > 0) 
         {
             Player oppositePlayer = ChangeTurn(playerActive);
             Piece attackedKing = oppositePlayer.GetPiecesOfType<King>().FirstOrDefault();
