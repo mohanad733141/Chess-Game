@@ -87,14 +87,14 @@ public class ChessBoard : MonoBehaviour
 
     private void showSelectableCells(List<Vector2Int> selection)
     {
-        Dictionary<Vector3, bool> cellInfo = new();
+        Dictionary<Vector3, bool> cellInfo = new Dictionary<Vector3, bool>();
         for(int i = 0; i < selection.Count; i++)
         {
             Vector3 pos = CalcPosFromCoords(selection[i]);
             bool isCellFree = GetPieceOnCell(selection[i]) == null;
             cellInfo.Add(pos, isCellFree);
         }
-        cellSelector.DisplaySelectedCell(cellInfo);
+        cellSelector.displaySelectedCell(cellInfo);
     }
 
     /*
@@ -103,7 +103,7 @@ public class ChessBoard : MonoBehaviour
     private void DeselectPiece()
     {
         pieceSelected = null;
-        cellSelector.ResetSelectedCell();
+        cellSelector.resetSelectedCell();
     }
 
     /*
