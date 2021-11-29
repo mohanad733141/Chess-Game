@@ -10,9 +10,12 @@ public class CellSelector : MonoBehaviour
     [SerializeField] private GameObject pieceSelector;
 
 
-    public void displaySelectedCell(Dictionary<Vector3, bool> cellInfo)
+    /*
+     * Highlight the cells where the piece can move to
+     */
+    public void DisplaySelectedCell(Dictionary<Vector3, bool> cellInfo)
     {
-        resetSelectedCell();
+        ResetSelectedCell();
         foreach(var info in cellInfo)
         {
             GameObject selector = Instantiate(pieceSelector, info.Key, Quaternion.identity);
@@ -27,7 +30,7 @@ public class CellSelector : MonoBehaviour
     /*
      * Reset any previously selected cells
      */
-    public void resetSelectedCell()
+    public void ResetSelectedCell()
     {
         for(int i = 0; i < selectors.Count; i++)
         {
