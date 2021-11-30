@@ -53,19 +53,6 @@ public abstract class Piece : MonoBehaviour
         matSetter.SetSingleMaterial(material);
     }
 
-<<<<<<< HEAD
-    public bool IsAttackingPieceOfType<T>() where T: Piece
-    {
-        foreach(var square in applicableChessMoves)
-        {
-            if (board.GetPieceOnCell(square) is T)
-                return true;
-        }
-        return false;
-    }
-
-=======
->>>>>>> parent of e47a884 (gamestate)
     public bool IsFromSameTeam(Piece piece)
     {
         return team == piece.team;

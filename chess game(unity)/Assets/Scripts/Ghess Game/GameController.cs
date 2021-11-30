@@ -40,20 +40,6 @@ public class GameController : MonoBehaviour
         MakePieces(brdLayout);
         playerActive = playerWhite;// white player is the first player to choose a move
         CreatePossibleMoves(playerActive);
-<<<<<<< HEAD
-        SetGameState(GameState.Play);
-    }
-
-    private void SetGameState(GameState state)
-    {
-        this.state = state;
-    }
-
-    public bool IsGameInProgress()
-    {
-        return state == GameState.Play;
-=======
->>>>>>> parent of e47a884 (gamestate)
     }
 
     /* 
@@ -117,40 +103,7 @@ public class GameController : MonoBehaviour
     {
         CreatePossibleMoves(playerActive);
         CreatePossibleMoves(ChangeTurn(playerActive));
-<<<<<<< HEAD
-        if (CheckIfGameIsFinished())
-            EndGame();
-        else
-            NextPlayerTurn();
-    }
-
-    private bool CheckIfGameIsFinished()
-    {
-        Piece[] kingAttackingPieces = playerActive.GetPiecesAttackingOpponentPieceOfType<King>();
-        if (kingAttackingPieces.Length > 0) 
-        {
-            Player oppositePlayer = ChangeTurn(playerActive);
-            Piece attackedKing = oppositePlayer.GetPiecesOfType<King>().FirstOrDefault();
-            oppositePlayer.RemovesMovesEnablingAttackOnPieces<King>(playerActive, attackedKing);
-
-            int avaiableKingMoves = attackedKing.applicableChessMoves.Count;
-            if(avaiableKingMoves==0)
-            {
-                bool canCoverKing = oppositePlayer.CanHidePieceFromAttack<King>(playerActive);
-                if (!canCoverKing)
-                    return true;
-            }
-        }
-        return false;
-    }
-
-    private void EndGame()
-    {
-        Debug.Log("Game Finished");
-        SetGameState(GameState.Finished);
-=======
         NextPlayerTurn();
->>>>>>> parent of e47a884 (gamestate)
     }
 
     /*
