@@ -54,12 +54,7 @@ public class ChessBoard : MonoBehaviour
      * Allows the user to select/deselect a cell to move the piece
      */
     public void CellSelected(Vector3 atPostion)
-<<<<<<< HEAD
-    { if (!ChessController.IsGameInProgress())
-            return;
-=======
-    {
->>>>>>> parent of e47a884 (gamestate)
+    { 
         Vector2Int coords = CalcCoordsFromPos(atPostion);
         Piece p = GetPieceOnCell(coords);
 
