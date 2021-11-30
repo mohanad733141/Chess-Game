@@ -65,8 +65,8 @@ public class Player
                 p.SelectAvailableSquares();
             }
         }
-    
     }
+<<<<<<< HEAD
 
     public Piece[] GetPiecesAttackingOpponentPieceOfType<T>() where T: Piece
     {
@@ -133,4 +133,6 @@ public class Player
 
 
 
+=======
+>>>>>>> parent of e47a884 (gamestate)
 }

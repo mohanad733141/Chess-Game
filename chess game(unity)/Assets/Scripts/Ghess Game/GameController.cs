@@ -7,9 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(PieceCreator))]
 public class GameController : MonoBehaviour
 {
-    private enum GameState { Init,Play,Finished }
     [SerializeField] private ChessBoardLayout brdLayout;
-    [SerializeField] private ChessBoard brd;
 
     private PieceCreator pieceMaker;
     // 2 players for the game
@@ -17,9 +15,7 @@ public class GameController : MonoBehaviour
     private Player playerBlack;
     // active player making the move
     private Player playerActive;
-    private GameState state;
-
-    
+    [SerializeField] private ChessBoard brd;
 
     private void Awake()
     {
@@ -44,6 +40,7 @@ public class GameController : MonoBehaviour
         MakePieces(brdLayout);
         playerActive = playerWhite;// white player is the first player to choose a move
         CreatePossibleMoves(playerActive);
+<<<<<<< HEAD
         SetGameState(GameState.Play);
     }
 
@@ -55,6 +52,8 @@ public class GameController : MonoBehaviour
     public bool IsGameInProgress()
     {
         return state == GameState.Play;
+=======
+>>>>>>> parent of e47a884 (gamestate)
     }
 
     /* 
@@ -118,6 +117,7 @@ public class GameController : MonoBehaviour
     {
         CreatePossibleMoves(playerActive);
         CreatePossibleMoves(ChangeTurn(playerActive));
+<<<<<<< HEAD
         if (CheckIfGameIsFinished())
             EndGame();
         else
@@ -148,6 +148,9 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("Game Finished");
         SetGameState(GameState.Finished);
+=======
+        NextPlayerTurn();
+>>>>>>> parent of e47a884 (gamestate)
     }
 
     /*
