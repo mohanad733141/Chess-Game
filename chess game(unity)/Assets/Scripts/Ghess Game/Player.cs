@@ -66,4 +66,73 @@ public class Player
             }
         }
     }
+<<<<<<< HEAD
+
+    public Piece[] GetPiecesAttackingOpponentPieceOfType<T>() where T: Piece
+    {
+        return activePlayerPieces.Where(p => p.IsAttackingPieceOfType<T>()).ToArray();
+    }
+
+
+
+    public Piece[] GetPiecesOfType<T>() where T : Piece
+    {
+        return activePlayerPieces.Where(p => p is T).ToArray();
+    }
+
+    public void RemovesMovesEnablingAttackOnPieces<T>(Player opponent, Piece pieceSelected) where T: Piece
+    {
+        List<Vector2Int> coordsToRemove = new List<Vector2Int>();
+        foreach(var coords in pieceSelected.applicableChessMoves)
+        {
+            Piece GetPieceOnCell = chessBoard.GetPieceOnCell(coords);
+            chessBoard.MovePiecesOnBoard(coords, pieceSelected.unavaliableSquare, pieceSelected, null);
+            opponent.CreatePossibleMoves();
+            if (opponent.CheckIfIsAttackingPiece<T>())
+                coordsToRemove.Add(coords);
+        }
+        foreach(var coords in coordsToRemove)
+        {
+            pieceSelected.applicableChessMoves.Remove(coords);
+        }
+    
+    }
+
+    private bool CheckIfIsAttackingPiece<T>() where T:Piece
+    {
+        foreach(var piece in activePlayerPieces)
+        {
+            if (chessBoard.AlreadyContains(piece) && piece.IsAttackingPieceOfType<T>())
+                return true;
+        }
+        return false;
+    }
+
+    public bool CanHidePieceFromAttack<T>(Player opponent) where T:Piece
+    {
+        foreach(var piece in activePlayerPieces)
+        {
+            foreach(var coords in piece.applicableChessMoves)
+            {
+                Piece pieceOnCoords = chessBoard.GetPieceOnCell(coords);
+                chessBoard.MovePiecesOnBoard(coords, piece.unavaliableSquare, piece, null);
+                opponent.CreatePossibleMoves();
+                if(!opponent.CheckIfIsAttackingPiece<T>())
+                {
+                    chessBoard.MovePiecesOnBoard(piece.unavaliableSquare, coords, piece, pieceOnCoords);
+                    return true;
+                }
+                chessBoard.MovePiecesOnBoard(piece.unavaliableSquare, coords, piece, pieceOnCoords);
+            }
+
+        }
+        return false;
+    }
+
+
+
+
+
+=======
+>>>>>>> parent of e47a884 (gamestate)
 }
