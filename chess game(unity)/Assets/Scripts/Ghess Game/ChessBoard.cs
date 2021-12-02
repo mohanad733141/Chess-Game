@@ -54,7 +54,9 @@ public class ChessBoard : MonoBehaviour
      * Allows the user to select/deselect a cell to move the piece
      */
     public void CellSelected(Vector3 atPostion)
-    { 
+    {
+        if (!controller.IsGameInProgress())
+            return;
         Vector2Int coords = CalcCoordsFromPos(atPostion);
         Piece p = GetPieceOnCell(coords);
 
@@ -79,6 +81,7 @@ public class ChessBoard : MonoBehaviour
      */
     private void SelectPiece(Piece piece)
     {
+        controller.RemoveMovesEnablingAttackOnPieceOfType<King>(piece);
         pieceSelected = piece;
         List<Vector2Int> selection = pieceSelected.applicableChessMoves;
         showSelectableCells(selection);
@@ -110,10 +113,27 @@ public class ChessBoard : MonoBehaviour
      */
     private void MoveSelected(Vector2Int coordinates, Piece piece)
     {
+        TryToTakeOppositePiece(coordinates);
         MovePiecesOnBoard(coordinates, piece.unavaliableSquare, piece, null);
         pieceSelected.MoveChessPiece(coordinates);
         DeselectPiece();
         CompleteTurn();
+    }
+
+    private void TryToTakeOppositePiece(Vector2Int coordinates)
+    {
+        Piece piece = GetPieceOnCell(coordinates);
+        if (piece != null && !pieceSelected.IsFromSameTeam(piece))
+            TakePiece(piece);
+    }
+
+    private void TakePiece(Piece piece)
+    {
+        if (piece)
+        {
+            grid[piece.unavaliableSquare.x, piece.unavaliableSquare.y] = null;
+            controller.OnPieceRemoved(piece);
+        }
     }
 
     /*
@@ -127,7 +147,7 @@ public class ChessBoard : MonoBehaviour
     /*
      * Update the board by moving the piece
      */
-    private void MovePiecesOnBoard(Vector2Int newCoordinates, Vector2Int oldCoordinates, Piece newPiece, Piece oldPiece)
+    public void MovePiecesOnBoard(Vector2Int newCoordinates, Vector2Int oldCoordinates, Piece newPiece, Piece oldPiece)
     {
         grid[oldCoordinates.x, oldCoordinates.y] = oldPiece;
         grid[newCoordinates.x, newCoordinates.y] = newPiece;
@@ -178,5 +198,10 @@ public class ChessBoard : MonoBehaviour
         }
     }
 
+    internal void OnGameRestarted()
+    {
+        pieceSelected = null;
+        SetupGrid();
+    }
 }
 //testing
