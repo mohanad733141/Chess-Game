@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     private enum GameState {Init, Play, Finished};
 
     [SerializeField] private ChessBoardLayout brdLayout;
+    [SerializeField] private Menu menu;
 
     private PieceCreator pieceMaker;
     // 2 players for the game
@@ -40,6 +41,7 @@ public class GameController : MonoBehaviour
 
     private void NewGame()
     {
+        menu.HideMenu();
         SetGameState(GameState.Init);
         brd.SetDependencies(this);
         MakePieces(brdLayout);
@@ -154,7 +156,7 @@ public class GameController : MonoBehaviour
 
     private void EndGame() 
     {
-        Debug.Log("Game Ended");
+        menu.IsGameFinished(playerActive.playerColour.ToString());
         SetGameState(GameState.Finished);
     }
      
