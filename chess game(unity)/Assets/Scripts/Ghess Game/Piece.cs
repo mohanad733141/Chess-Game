@@ -86,13 +86,4 @@ public abstract class Piece : MonoBehaviour
         transform.position = board.CalcPosFromCoords(coords);
     }
 
-    public bool IsAttackingPieceOfType<T>() where T : Piece
-    {
-        foreach(var square in applicableChessMoves)
-        {
-            if(board.CalcPosFromCoords(square) is T)
-                return true;
-        }
-        return false;
-    }
 }
