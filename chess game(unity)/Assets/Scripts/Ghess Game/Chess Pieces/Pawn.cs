@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,5 +36,18 @@ public class Pawn : Piece
             }
         }
         return applicableChessMoves;
-    }  
+    }
+
+    public override void MoveChessPiece(Vector2Int coords)
+    {
+        base.MoveChessPiece(coords);
+        CheckPromotion();
+    }
+
+    private void CheckPromotion()
+    {
+        int endOfBoardYCoord = team == TeamColour.White ? ChessBoard.CHESS_BRD_SIZE - 1 : 0;
+        if (unavaliableSquare.y == endOfBoardYCoord)
+            board.PromotePiece(this);
+    }
 }

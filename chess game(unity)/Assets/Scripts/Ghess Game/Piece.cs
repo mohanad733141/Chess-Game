@@ -86,4 +86,33 @@ public abstract class Piece : MonoBehaviour
         transform.position = board.CalcPosFromCoords(coords);
     }
 
+    public bool IsAttackingPieceOfType<T>() where T : Piece
+    {
+        foreach(var square in applicableChessMoves)
+        {
+            if (board.GetPieceOnCell(square) is T)
+                return true;
+        }
+        return false;
+    }
+
+    protected Piece GetPieceInDirection<T>(TeamColour team, Vector2Int direction) where T : Piece
+    {
+        for(int i = 1; i < ChessBoard.CHESS_BRD_SIZE; i++)
+        {
+            Vector2Int nextCoords = unavaliableSquare + direction * i;
+            Piece piece = board.GetPieceOnCell(nextCoords);
+            if (!board.WithinBounds(nextCoords))
+                return null;
+            if(piece != null)
+            {
+                if (piece.team != team || !(piece is T))
+                    return null;
+                else if (piece.team == team && piece is T)
+                    return piece;
+            }
+        }
+
+        return null;
+    }
 }

@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 8777940479575918328}
   - component: {fileID: -2155760764397115659}
   - component: {fileID: -8245264403659274394}
+  - component: {fileID: 7913772296485519921}
+  - component: {fileID: -6551425845987287861}
   m_Layer: 0
   m_Name: Queen
   m_TagString: Untagged
@@ -31,6 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -20.29, y: -10.88, z: 8.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,6 +57,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -108,8 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df70b4e467ad5154a99fc1fa7af99ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movesAvailable:
-  - {x: 3, y: 8}
+  applicableChessMoves: []
 --- !u!114 &-8245264403659274394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,3 +125,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971466f600e664da3b2a6ddcfe128410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7913772296485519921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6292813087354887941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb026f1593b3440eaba84b72511f2866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+--- !u!114 &-6551425845987287861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6292813087354887941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15f288ab3b614a468eafa8040a4dcd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  height: 0

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player
@@ -65,5 +67,69 @@ public class Player
                 p.SelectAvailableSquares();
             }
         }
+    }
+
+    public Piece[] GetPiecesAttackingOppositePieceOfType<T>() where T : Piece
+    {
+        return activePlayerPieces.Where(p => p.IsAttackingPieceOfType<T>()).ToArray();
+    }
+
+    public Piece[] GetPiecesOfType<T>() where T : Piece
+    {
+        return activePlayerPieces.Where(p => p is T).ToArray();
+    }
+
+    public void RemoveMovesEnablingAttackOnPiece<T>(Player opponent, Piece selectedPiece) where T : Piece
+    {
+        List<Vector2Int> coordsToRemove = new List<Vector2Int>();
+        foreach (var coords in selectedPiece.applicableChessMoves)
+        {
+            Piece pieceOnSquare = chessBoard.GetPieceOnCell(coords);
+            chessBoard.MovePiecesOnBoard(coords, selectedPiece.unavaliableSquare, selectedPiece, null);
+            opponent.CreatePossibleMoves();
+            if (opponent.CheckIfIsAttackingPiece<T>())
+                coordsToRemove.Add(coords);
+            chessBoard.MovePiecesOnBoard(selectedPiece.unavaliableSquare, coords, selectedPiece, pieceOnSquare);
+        }
+        foreach (var c in coordsToRemove)
+            {
+                selectedPiece.applicableChessMoves.Remove(c);
+            }
+
+    }
+
+    internal bool CheckIfIsAttackingPiece<T>() where T : Piece
+    {
+        foreach(var piece in activePlayerPieces)
+        {
+            if(chessBoard.AlreadyContains(piece) && piece.IsAttackingPieceOfType<T>())
+                return true;
+        }
+        return false;
+    }
+
+    public bool CanHidePieceFromAttack<T>(Player opponentPlayer) where T : Piece
+    {
+        foreach(var piece in activePlayerPieces)
+        {
+            foreach(var coords in piece.applicableChessMoves)
+            {
+                Piece pieceOnCoords = chessBoard.GetPieceOnCell(coords);
+                chessBoard.MovePiecesOnBoard(coords, piece.unavaliableSquare, piece, null);
+                opponentPlayer.CreatePossibleMoves();
+                if(!opponentPlayer.CheckIfIsAttackingPiece<T>())
+                {
+                    chessBoard.MovePiecesOnBoard(piece.unavaliableSquare, coords, piece, pieceOnCoords);
+                    return true;
+                }
+                chessBoard.MovePiecesOnBoard(piece.unavaliableSquare, coords, piece, pieceOnCoords);
+            }
+        }
+        return false;
+    }
+
+    internal void OnGameRestarted()
+    {
+        activePlayerPieces.Clear();
     }
 }
