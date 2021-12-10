@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CellSelector))]
-public abstract class ChessBoard : MonoBehaviour
+public class ChessBoard : MonoBehaviour
 {
 
     [SerializeField] private float cellSize;
@@ -17,8 +17,6 @@ public abstract class ChessBoard : MonoBehaviour
     private GameController controller;
     private CellSelector cellSelector;
 
-    public abstract void SelectPieceMoved(Vector2 coords);
-    public abstract void SetSelectedPiece(Vector2 coords);
 
     private void Awake()
     {
@@ -67,14 +65,14 @@ public abstract class ChessBoard : MonoBehaviour
             if (p != null && pieceSelected == p)
                 DeselectPiece();
             else if (p != null && pieceSelected != p && controller.IsFromActivePlayer(p.team))
-                SelectPiece(coords);
+                SelectPiece(p);
             else if (pieceSelected.CanMoveTo(coords))
-                SelectPieceMoved(coords);
+                MoveSelected(coords, pieceSelected);
         }
         else
         {
             if (p != null && controller.IsFromActivePlayer(p.team))
-                SelectPiece(coords);
+                SelectPiece(p);
         }
     }
 
@@ -87,11 +85,10 @@ public abstract class ChessBoard : MonoBehaviour
     /*
      * Select the given piece
      */
-    private void SelectPiece(Vector2Int coords)
+    private void SelectPiece(Piece piece)
     {
-        Piece piece = GetPieceOnCell(coords);
         controller.RemoveMovesEnablingAttackOnPieceOfType<King>(piece);
-        SetSelectedPiece(coords);
+        pieceSelected = piece;
         List<Vector2Int> selection = pieceSelected.applicableChessMoves;
         showSelectableCells(selection);
     }
@@ -120,19 +117,13 @@ public abstract class ChessBoard : MonoBehaviour
     /*
      * Move the selected piece to the given coordinates
      */
-    public void MoveSelected(Vector2Int coordinates)
+    private void MoveSelected(Vector2Int coordinates, Piece piece)
     {
         TryToTakeOppositePiece(coordinates);
-        MovePiecesOnBoard(coordinates, pieceSelected.unavaliableSquare, pieceSelected, null);
+        MovePiecesOnBoard(coordinates, piece.unavaliableSquare, piece, null);
         pieceSelected.MoveChessPiece(coordinates);
         DeselectPiece();
         CompleteTurn();
-    }
-
-    public void OnSetSelectedPiece(Vector2Int coords)
-    {
-        Piece piece = GetPieceOnCell(coords);
-        pieceSelected = piece;
     }
 
     private void TryToTakeOppositePiece(Vector2Int coords)
