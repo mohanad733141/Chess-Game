@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
 
     private void NewGame()
     {
-        menu.HideUI();
+
         SetGameState(GameState.Init);
         brd.SetDependencies(this);
         MakePieces(brdLayout);
@@ -156,7 +156,6 @@ public class GameController : MonoBehaviour
 
     private void EndGame()
     {
-        menu.OnGameFinished(playerActive.playerColour.ToString());
         SetGameState(GameState.Finished);
     }
 
