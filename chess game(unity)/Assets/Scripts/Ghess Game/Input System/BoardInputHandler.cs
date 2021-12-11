@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ChessBoard))]
+
 public class BoardInputHandler : MonoBehaviour, IInputHandler
 {
     private ChessBoard board;
