@@ -587,12 +587,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 530813409}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -413, y: -195, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1694241832}
-  m_RootOrder: 1
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &650319482
 GameObject:
@@ -1630,7 +1630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brdLayout: {fileID: 11400000, guid: 6c6433389a9345a47b480f9484dc780d, type: 2}
   menu: {fileID: 1694241831}
-  brd: {fileID: 0}
+  brd: {fileID: 1380036122}
 --- !u!114 &1065565001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2143,9 +2143,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellSize: 1.5
   bottomLeftCell: {fileID: 1663288990}
-  pieceSelected: {fileID: 0}
-  controller: {fileID: 0}
-  cellSelector: {fileID: 0}
 --- !u!114 &1380036123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2523,7 +2520,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1053534490}
-  - {fileID: 530813412}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
